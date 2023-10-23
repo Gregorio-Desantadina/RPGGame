@@ -11,11 +11,11 @@ namespace MyGameProject.Game.Start
             Console.Write("Ingrese su nombre: ");
             string? input = Console.ReadLine();
 
-            Executioner Character1 = new Executioner(input);
+            Character Character1 = new  IceMage(input);
 
-            Esqueleton Character2 = new Esqueleton("Esqueleton1");
+            Character Character2 = new Esqueleton("Esqueleton1");
 
-            Character Character3 = new Berserk ("Amigo");
+            Character Character3 = new Executioner ("Amigo");
 
 
             Character Character5 = new Esqueleton("Esqueleton2");

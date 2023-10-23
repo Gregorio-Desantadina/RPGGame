@@ -49,5 +49,18 @@ namespace MyGameProject.Game.GameObjects
 				Console.WriteLine($"{name} no tiene suficiente mana para utilizar esta habilidad...");
 			}
 		}
-	}
+        public override void ThirdSpecialAttack(List<Character> list)
+        {
+			if (mana >= 15)
+			{
+				mana -= 15;
+				foreach (var character in list)
+				{
+					Console.WriteLine($"{name} Slows down {character.name}");
+                    character.ReciveDamage(damage);
+                    character.SetSpeed(-4);
+				}
+			}
+        }
+    }
 }
