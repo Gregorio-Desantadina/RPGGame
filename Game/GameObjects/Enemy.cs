@@ -11,20 +11,26 @@ namespace MyGameProject.Game.GameObjects
 
         public override void Actions(List<Character> list)
         {
-            int election = (Random(4));
-            if (election == 1)
-            {
-                Attack(list);
-            }
-            else if (election == 2)
-            {
-                UseSpecialAttack(list);
+            if (hp > 0) {
+                int election = (Random(4));
+                if (election == 1)
+                {
+                    Attack(list);
+                }
+                else if (election == 2)
+                {
+                    UseSpecialAttack(list);
+                }
+                else
+                {
+                    SecondSpecialAttack(list);
+                }
             }
             else
             {
-                SecondSpecialAttack(list);
+                Console.WriteLine($"{name} dies...");
             }
-        }
+}
         public override Character SelectTarget(List<Character> list)
         {
             Character selection = null;

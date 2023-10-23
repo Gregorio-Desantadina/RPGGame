@@ -16,6 +16,7 @@ namespace MyGameProject.Game.GameObjects
         public int maxhp = 100;
         public int mana = 100;
         public int fire = 0;
+        public int fireDamage = 0;
         private int poison = 0;
         private int ice = 0;
         public Character(string name)
@@ -40,29 +41,36 @@ namespace MyGameProject.Game.GameObjects
 
         public virtual void Actions(List<Character> list)
         {
-            Console.WriteLine($"[{name} {charclass}]: HP: {hp} Mana: {mana}");
-            Console.WriteLine($"{name}: Seleccione su accion:");
-            Console.WriteLine($"[1] {Attack1Name}");
-            Console.WriteLine($"[2] {Attack2Name}");
-            Console.WriteLine($"[3] {Attack3Name}");
-            Console.WriteLine($"[4] {Attack4Name}");
-            Console.Write("...");
-            string? election = Console.ReadLine();
-            if (election == "1")
+            if (hp > 0)
             {
-                Attack(list);
-            }
-            else if (election == "2")
-            {
-                UseSpecialAttack(list);
-            }
-            else if (election == "3")
-            {
-                SecondSpecialAttack(list);
+                Console.WriteLine($"[{name} {charclass}]: HP: {hp} Mana: {mana}");
+                Console.WriteLine($"{name}: Seleccione su accion:");
+                Console.WriteLine($"[1] {Attack1Name}");
+                Console.WriteLine($"[2] {Attack2Name}");
+                Console.WriteLine($"[3] {Attack3Name}");
+                Console.WriteLine($"[4] {Attack4Name}");
+                Console.Write("...");
+                string? election = Console.ReadLine();
+                if (election == "1")
+                {
+                    Attack(list);
+                }
+                else if (election == "2")
+                {
+                    UseSpecialAttack(list);
+                }
+                else if (election == "3")
+                {
+                    SecondSpecialAttack(list);
+                }
+                else
+                {
+                    ThirdSpecialAttack(list);
+                }
             }
             else
             {
-                ThirdSpecialAttack(list);
+                Console.WriteLine($"{name} dies...");
             }
 
         }
@@ -179,8 +187,8 @@ namespace MyGameProject.Game.GameObjects
 
         public void FireDamage()
         {
-            Console.WriteLine($"{name} recives 7 fire damage!");
-            hp = hp - 7;
+            Console.WriteLine($"{name} recives {fireDamage} fire damage!");
+            hp -= fireDamage;
             fire = fire - 1;
             if (fire != 0){
                 Console.WriteLine($"{name} will burn for {fire} more turns");
@@ -206,10 +214,23 @@ namespace MyGameProject.Game.GameObjects
                  Console.WriteLine($"{name} stops being poisoned.");
              }
         }
+       
         public void IceDamage()
         {
             Console.WriteLine($"{name} is frozen!");
             ice = ice - 1;
+        }
+        public void SetSpeed(int speed)
+        {
+            this.speed += speed;
+        }
+        public void SetFire(int fire, int damage)
+        {
+            if (fireDamage <= damage)
+            {
+                this.fireDamage = damage;
+            }
+            this.fire = fire;
         }
         public void SetPoison(int Poison)
         {

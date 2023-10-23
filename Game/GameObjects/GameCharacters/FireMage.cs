@@ -6,7 +6,7 @@ namespace MyGameProject.Game.GameObjects
 	{
 		public FireMage(string name) : base(name)
 		{
-			damage = 5;
+			damage = 7;
 			charclass = "FireMage";
             Attack2Name = "Meteor Rain";
             Attack3Name = "Burning";
@@ -24,7 +24,7 @@ namespace MyGameProject.Game.GameObjects
 				{
 					if (Random(3) == 1)
 					{
-						target.ReciveDamage(damage + (Random(5)));
+						target.ReciveDamage(damage + (Random(4)));
 					}
 					else
 					{
@@ -40,9 +40,15 @@ namespace MyGameProject.Game.GameObjects
 		}
 		public override void SecondSpecialAttack(List<Character> list)
 		{
-            Character target = SelectTarget(list);
-            Console.WriteLine($"{name} sets {target.name} on fire!");
-			target.fire = target.fire + 2;
+			if (mana >= 20)
+			{
+				mana -= 20;
+				foreach (var character in list)
+				{
+					Console.WriteLine($"{name} sets {character.name} on fire!");
+					character.SetFire(2, damage);
+				}
+			}
 		}
 	}
 }

@@ -8,6 +8,9 @@ namespace MyGameProject.Game.GameObjects
         public Berserk(string name) : base(name)
         {
             charclass = "Berserk";
+            Attack2Name = "Triple Attack";
+            Attack3Name = "Heavy slash";
+            Attack4Name = "Blood Sacrifice";
         }
    
         public override void UseSpecialAttack(List<Character> list)
@@ -19,7 +22,7 @@ namespace MyGameProject.Game.GameObjects
                 Console.WriteLine($"{name} realiza un ataque especial con 20 de mana a {target.name}.");
                 for (int i = 0; i <= 2; i++)
                 {
-                    target.ReciveDamage(damage + ((maxhp - hp) / 10));
+                    target.ReciveDamage((damage / 2) + ((maxhp - hp) / 10));
                 }
             }
             else
