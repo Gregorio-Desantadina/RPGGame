@@ -6,7 +6,7 @@ namespace MyGameProject.Game.GameObjects
     {
         public string name;
         public string charclass = "Basic";
-        protected string Attack1Name = "Basic Attack";
+        protected string Attack1Name = "Mana recharge";
         protected string Attack2Name = "Special Attack 1";
         protected string Attack3Name = "Special Attack 2";
         protected string Attack4Name = "Special Attack 3";
@@ -14,6 +14,7 @@ namespace MyGameProject.Game.GameObjects
         public int hp = 100;
         public int speed = 16;
         public int maxhp = 100;
+        public int maxmana = 100;
         public int mana = 100;
         public int fire = 0;
         public int fireDamage = 0;
@@ -110,11 +111,10 @@ namespace MyGameProject.Game.GameObjects
 
         }
 
-        public void Attack(List<Character> list)
+        public virtual void Attack(List<Character> list)
         {
-            Character target = SelectTarget(list);
-            Console.WriteLine($"{name} ataca a {target.name}!");
-            target.ReciveDamage(damage);
+            Console.WriteLine($"{name} recharges mana");
+            SetMana(30);
         }
 
         public virtual void UseSpecialAttack(List<Character> list)
@@ -246,7 +246,23 @@ namespace MyGameProject.Game.GameObjects
         {
             ice = ice + quantity;
         }
-
+        public void SetMana(int quantity)
+        {
+            mana = mana + quantity;
+            if (mana < 0) 
+            {
+                mana = 0;
+            }
+            else if (mana > maxmana)
+            {
+                mana = maxmana;
+            }
+                                    
+        }
+        public int ReturnMana()
+        {
+            return mana;
+        }
 
     }
 }
