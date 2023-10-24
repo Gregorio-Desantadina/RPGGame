@@ -8,12 +8,15 @@ namespace MyGameProject.Game.GameObjects
 		{
 			damage = 7;
 			charclass = "IceMage";
+			Attack1Name = "Mana recharge";
 			Attack2Name = "Mana Steal";
 			Attack3Name = "Freeze";
+			Attack4Name = "Blizzard";
 			speed = 13;
 		}
 
-		public override void UseSpecialAttack(List<Character> list)
+
+        public override void UseSpecialAttack(List<Character> list)
 		{
 			if (mana >= 25)
 			{
