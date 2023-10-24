@@ -13,10 +13,9 @@ namespace MyGameProject.Game.Start
 
             Character Character1 = new  IceMage(input);
 
-            Character Character2 = new ArcherEsqueleton("Esqueleton1");
+            Character Character2 = new ArcherEsqueleton("Esqueleton");
 
             Character Character3 = new Executioner ("Amigo");
-
 
             Character Character5 = new Ghost("Ghost");
 
