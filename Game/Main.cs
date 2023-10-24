@@ -5,29 +5,53 @@ namespace MyGameProject.Game.Start
 {
     public class Main
     {
+        static Random random = new Random();
         public void Start()
         {
+            List<Character> enemies = new List<Character>
+            {
+                new Ghost("Ghost"),
+                new Esqueleton("Esqueleton"),
+                new ArcherEsqueleton("Archer Esqueleton"),
+                new Spider("Spider")
+            };
             Console.WriteLine("El Juego a Comenzado...");
             Console.Write("Ingrese su nombre: ");
             string? input = Console.ReadLine();
 
             Character Character1 = new  IceMage(input);
 
-            Character Character2 = new ArcherEsqueleton("Esqueleton");
-
             Character Character3 = new Executioner ("Amigo");
-
-            Character Character5 = new Ghost("Ghost");
 
             List<Character> teamList = CreateCharacterList();
             List<Character> enemyList = CreateCharacterList();
            
             teamList = AddList(teamList, Character1);
             teamList = AddList(teamList, Character3);
-            enemyList = AddList(enemyList, Character2);
-            enemyList = AddList(enemyList, Character5);
+            enemyList = CreateEnemyList(enemies, enemyList, 1);
 
             Fight(teamList, enemyList);
+        }
+
+        public Character CreateCharacter(List<Character> list)
+        {
+            Console.WriteLine("hola");
+            int number = random.Next(list.Count);
+            Character character = list[number];
+            return character; 
+        }
+
+
+
+        public List<Character> CreateEnemyList(List<Character> list, List<Character> otherList, int number)
+        {
+            for (int i = 0; i <= number; i++)
+            {
+                Console.WriteLine("oeoe");
+                Character Character = CreateCharacter(list);
+                list = AddList(otherList, Character);
+            }
+            return list;
         }
 
         public List<Character> CreateCharacterList()

@@ -15,16 +15,12 @@ namespace MyGameProject.Game.GameObjects
                 int election = (Random(4));
                 if (election == 1)
                 {
-                    Attack(list);
-                }
-                else if (election == 2)
-                {
                     UseSpecialAttack(list);
                 }
                 else
                 {
                     SecondSpecialAttack(list);
-                }
+                } 
             }
             else
             {
