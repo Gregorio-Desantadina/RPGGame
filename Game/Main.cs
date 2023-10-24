@@ -7,7 +7,7 @@ namespace MyGameProject.Game.Start
     {
         public void Start()
         {
-            Console.WriteLine("El Juego a Comenzado.");
+            Console.WriteLine("El Juego a Comenzado...");
             Console.Write("Ingrese su nombre: ");
             string? input = Console.ReadLine();
 
