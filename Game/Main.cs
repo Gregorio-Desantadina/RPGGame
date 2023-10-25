@@ -28,7 +28,7 @@ namespace MyGameProject.Game.Start
            
             teamList = AddList(teamList, Character1);
             teamList = AddList(teamList, Character3);
-            enemyList = CreateEnemyList(enemies, enemyList, 1);
+            enemyList = CreateEnemyList(enemies, enemyList, 2);
 
             Fight(teamList, enemyList);
         }
@@ -45,7 +45,7 @@ namespace MyGameProject.Game.Start
 
         public List<Character> CreateEnemyList(List<Character> list, List<Character> otherList, int number)
         {
-            for (int i = 0; i <= number; i++)
+            for (int i = 0; i < number; i++)
             {
                 Console.WriteLine("oeoe");
                 Character Character = CreateCharacter(list);
