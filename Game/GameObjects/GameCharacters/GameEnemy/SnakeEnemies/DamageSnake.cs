@@ -1,0 +1,34 @@
+using System;
+
+namespace MyGameProject.Game.GameObjects
+{
+    public class DamageSnake : Enemy
+    {
+        public DamageSnake(string name) : base(name)
+        {
+            charclass = "Poisonous Snake";
+            maxhp = 10;
+            hp = 10;
+            damage = 4;
+            speed = 11;
+        }
+
+        public override void UseSpecialAttack(List<Character> list)
+        {
+            Character target = SelectTarget(list);
+            Console.WriteLine($"{name} poisons {target.name}.");
+            target.ReciveDamage(damage + (Random(4)));
+            target.SetPoison(8);
+        }
+        public override void SecondSpecialAttack(List<Character> list)
+        {
+            Character target = SelectTarget(list);
+            Console.WriteLine($"{name} realiza un golpe fuerte a {target.name}!");
+            target.ReciveDamage(damage * 2);
+        }
+        public override object Clone()
+        {
+            return new DamageSnake(charclass);
+        }
+    }
+}

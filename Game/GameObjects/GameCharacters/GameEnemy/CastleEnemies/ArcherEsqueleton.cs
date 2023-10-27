@@ -7,13 +7,13 @@ namespace MyGameProject.Game.GameObjects
 		bool charged = false;
 		public ArcherEsqueleton(string name) : base(name)
 		{
-			charclass = "Esqueleton";
+			charclass = "ArcherEsqueleton";
 			maxhp = 80;
 			hp = 80;
 			damage = 15;
 			speed = 10;
 		}
-		public override void Actions(List<Character> list)
+		public override void Actions(List<Character> list, List<Character> allyList)
 		{
 			if (hp > 0)
 			{
@@ -44,5 +44,9 @@ namespace MyGameProject.Game.GameObjects
 			target.ReciveDamage(damage * 2);
 			charged = false;
 		}
-	}
+        public override object Clone()
+        {
+            return new ArcherEsqueleton(charclass);
+        }
+    }
 }

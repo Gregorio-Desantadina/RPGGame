@@ -10,9 +10,9 @@ namespace MyGameProject.Game.GameObjects
             speed = 21;
             charclass = "Assassin";
             Attack1Name = "Basic Attack";
-            Attack2Name = "Posion Dagger";
-            Attack3Name = "Deadly Finish";
-            Attack4Name = "Severe Poison";
+            Attack2Name = "Posion Dagger 15";
+            Attack3Name = "Deadly Finish 10";
+            Attack4Name = "Severe Poison 15";
         }
 
         public override void UseSpecialAttack(List<Character> list)

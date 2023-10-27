@@ -8,8 +8,8 @@ namespace MyGameProject.Game.GameObjects
 		{
 			damage = 7;
 			charclass = "FireMage";
-            Attack2Name = "Meteor Rain";
-            Attack3Name = "Burning";
+            Attack2Name = "Meteor Rain 40";
+            Attack3Name = "Burning 20";
             Attack4Name = "Nothing...";
         }
 
@@ -46,7 +46,7 @@ namespace MyGameProject.Game.GameObjects
 				foreach (var character in list)
 				{
 					Console.WriteLine($"{name} sets {character.name} on fire!");
-					character.SetFire(2, damage);
+					character.SetFire(3, damage);
 				}
 			}
 		}

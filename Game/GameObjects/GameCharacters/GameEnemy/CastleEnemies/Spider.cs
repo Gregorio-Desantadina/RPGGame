@@ -26,5 +26,9 @@ namespace MyGameProject.Game.GameObjects
             target.ReciveDamage(damage);
             target.SetPoison(4);
         }
+        public override object Clone()
+        {
+            return new Spider(charclass);
+        }
     }
 }

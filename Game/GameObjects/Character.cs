@@ -2,7 +2,8 @@ using System;
 
 namespace MyGameProject.Game.GameObjects
 {
-    public class Character
+    // ICloneable means it can generate copies of itself
+    public class Character :ICloneable
     {
         public string name;
         public string charclass = "Basic";
@@ -24,10 +25,11 @@ namespace MyGameProject.Game.GameObjects
         {
             this.name = name;
         }
+        
 
-        public void ReturnName()
+        public string ReturnName()
         {
-            Console.WriteLine($"Mi Nombre es: {name}");
+            return charclass;
         }
 
         public int ReturnHP()
@@ -35,12 +37,18 @@ namespace MyGameProject.Game.GameObjects
             return hp;
         }
 
+        public int ReturnMaxHP()
+        {
+            return maxhp;
+        }
+
         public int ReturnSpeed()
         {
             return speed;
         }
 
-        public virtual void Actions(List<Character> list)
+        // Allows Player to choose attacks and abilities
+        public virtual void Actions(List<Character> list, List<Character> allyList)
         {
             if (hp > 0)
             {
@@ -69,13 +77,15 @@ namespace MyGameProject.Game.GameObjects
                     ThirdSpecialAttack(list);
                 }
             }
+            // This else just exist so characters cant have a turn when they die for burning
             else
             {
                 Console.WriteLine($"{name} dies...");
             }
-
         }
 
+
+        // Allows player to choose a target
         public virtual Character SelectTarget(List<Character> list)
         {
             Character selection = null;
@@ -107,16 +117,17 @@ namespace MyGameProject.Game.GameObjects
                 
             }
             return selection;
-            
-
         }
 
+
+        // Basic mana regeneration, most characters use it
         public virtual void Attack(List<Character> list)
         {
             Console.WriteLine($"{name} recharges mana");
             SetMana(30);
         }
 
+        // First attack
         public virtual void UseSpecialAttack(List<Character> list)
         {
             Character target = SelectTarget(list);
@@ -124,26 +135,30 @@ namespace MyGameProject.Game.GameObjects
             target.ReciveDamage(damage * 2);
         }
 
+        // Second
         public virtual void SecondSpecialAttack(List<Character> list)
         {
             hp = hp + 5;
             Console.WriteLine($"{name} se curo 5 de vida! Vida actual: {hp}");
         }
 
+        // Third
         public virtual void ThirdSpecialAttack(List<Character> list)
         {
             hp = hp + 5;
             Console.WriteLine($"{name} se curo 5 de vida! Vida actual: {hp}");
         }
 
+        // Allows to recive damage
         public virtual void ReciveDamage(int damage)
         {
             Console.WriteLine($"{name} recives {damage} damage!");
             hp = hp - damage;
             Console.WriteLine($"{name} tiene {hp} de vida...");
 
-        } 
-        
+        }
+
+        // Allows healing
         public void ReciveHeal(int heal)
         {
             Console.WriteLine($"{name} heals {heal}");
@@ -156,6 +171,7 @@ namespace MyGameProject.Game.GameObjects
             }
         }
 
+        // Generates random number
         public int Random(int limit)
         {
             Random random = new Random();
@@ -164,7 +180,8 @@ namespace MyGameProject.Game.GameObjects
             return numeroAleatorio;
         }
 
-        public void StatusManager(List<Character> list)
+        // Manages all status effects, after its done, it allows the player to act with this character using Actions()
+        public void StatusManager(List<Character> list, List<Character> allyList)
         {
             if (fire > 0)
             {
@@ -181,7 +198,7 @@ namespace MyGameProject.Game.GameObjects
             }
             else
             {
-                Actions(list);
+                Actions(list, allyList);
             }
         }
 
@@ -262,6 +279,12 @@ namespace MyGameProject.Game.GameObjects
         public int ReturnMana()
         {
             return mana;
+        }
+
+        // Allows the class to create a new class of the same type, each character has its how Clone(), used in the creation of enemies
+        public virtual object Clone()
+        {
+            return new Character(charclass);
         }
 
     }

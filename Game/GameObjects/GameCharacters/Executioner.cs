@@ -1,4 +1,5 @@
 using System;
+using MyGameProject.Game.Start;
 
 namespace MyGameProject.Game.GameObjects
 {
@@ -6,14 +7,17 @@ namespace MyGameProject.Game.GameObjects
     {
         public int extraDamage = 0;
         public Executioner(string name) : base(name)
+
         {
-            damage = 12;
+            damage = 18;
             speed = 9;
             charclass = "Executioner";
-            Attack2Name = "Axe slash";
-            Attack3Name = "Sharpen the Blade";
-            Attack4Name = "Execution";
+            Attack2Name = "Axe slash 30";
+            Attack3Name = "Sharpen the Blade +10";
+            Attack4Name = "Execution 20";
         }
+
+        
 
         public override void UseSpecialAttack(List<Character> list)
         {

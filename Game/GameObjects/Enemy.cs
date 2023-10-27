@@ -9,7 +9,8 @@ namespace MyGameProject.Game.GameObjects
            
         }
 
-        public override void Actions(List<Character> list)
+        // Does a random action (each enemy usually overrides this, its just an example)
+        public override void Actions(List<Character> list, List<Character> allyList)
         {
             if (hp > 0) {
                 int election = (Random(4));
@@ -27,6 +28,7 @@ namespace MyGameProject.Game.GameObjects
                 Console.WriteLine($"{name} dies...");
             }
 }
+        // Selects a random target for attacks
         public override Character SelectTarget(List<Character> list)
         {
             Character selection = null;
@@ -36,6 +38,10 @@ namespace MyGameProject.Game.GameObjects
             return selection;
         }
 
+        public override object Clone()
+        {
+            return new Enemy(charclass);
+        }
 
     }
 }
