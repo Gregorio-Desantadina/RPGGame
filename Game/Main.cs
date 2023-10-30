@@ -26,9 +26,9 @@ namespace MyGameProject.Game.Start
             string? input = Console.ReadLine();
 
             // Just to test, player will be able to select their characters in the future
-            Character Character3 = new  IceMage(input);
+            Character Character3 = new  FireMage(input);
 
-            Character Character1 = new Assassin("Amigo");
+            Character Character1 = new Spider("Amigo");
 
 
             // Creates 2 empty lists
@@ -223,6 +223,37 @@ namespace MyGameProject.Game.Start
             return list;
         }
 
+        // Removes a character from a list
+        public void RemoveCharacter(List<Character> list, Character character)
+        {
+            var remove = character;
+            if (list.Contains(character))
+            {
+                Console.WriteLine("gogdgdsg");
+               /// list.Remove();
+            }
+            else
+            {
+                Console.WriteLine("no");
+            }
+            
+        }
+
+        // Check if any character HP is less than 0
+        public void RemoveCheckHP(List<Character> list)
+        {
+            foreach(var character in list)
+            {
+                if(character.ReturnHP() <= 0)
+                {
+                    Console.WriteLine("Entre 1 ves");
+                    Console.WriteLine(character.ReturnHP());
+                    list.Remove(character);
+                    //RemoveCharacter(list, character);
+                }
+            }
+        }
+
         // This makes 2 list of characters fight, the turns are distributed depending on speed
         public void Fight(List<Character> teamList, List<Character> enemyList)
         {
@@ -234,8 +265,10 @@ namespace MyGameProject.Game.Start
                 {
                     if (teamList.Any(obj => obj.ReturnHP() > 0) || enemyList.Any(obj => obj.ReturnHP() > 0))
                     {
+
                         Console.ReadKey(); 
                         Console.Clear();
+                        
                         PrintCharacters(teamList, enemyList);
                         if (teamList.Contains(character))
                         {
@@ -245,8 +278,12 @@ namespace MyGameProject.Game.Start
                         {
                             character.StatusManager(teamList, teamList);
                         }
+                        if(teamList.Contains(character) && character.ReturnHP() <= 0)
+                        {
+                            teamList.Remove(character);
+                        }
+                        
                     }
-                    Console.WriteLine("Hola mundo!");
                 }
             }
 

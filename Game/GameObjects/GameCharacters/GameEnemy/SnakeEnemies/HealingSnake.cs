@@ -47,6 +47,14 @@ namespace MyGameProject.Game.GameObjects
             var orderedList = list.OrderByDescending(c => c.ReturnMaxHP() - c.ReturnHP()).ToList();
             Character target = orderedList[0];
             mana = mana - 35;
+            int i = 1;
+            do
+            {
+
+                target = orderedList[i];
+                i++;
+
+            } while (target.ReturnHP() <= 0);
             Console.WriteLine($"{name}'s poison heals {target.name}.");
             target.ReciveHeal(damage *2 + (Random(4)));
         }
