@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace MyGameProject.Game.GameObjects
 {
@@ -23,10 +23,18 @@ namespace MyGameProject.Game.GameObjects
                     SecondSpecialAttack(list);
                 } 
             }
-            else
-            {
-                Console.WriteLine($"{name} dies...");
-            }
+            
+           
+                else
+                {
+                    texture1 = "       ";
+                    texture2 = "       ";
+                    texture3 = "       ";
+                    texture4 = "   o   ";
+                    texture5 = " /▄█▄\\ ";
+                    Console.WriteLine($"{name} esta muerto...");
+                }
+            
 }
         // Selects a random target for attacks
         public override Character SelectTarget(List<Character> list)

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace MyGameProject.Game.GameObjects
 {
@@ -13,6 +13,11 @@ namespace MyGameProject.Game.GameObjects
 			Attack3Name = "Freeze";
 			Attack4Name = "Blizzard";
 			speed = 13;
+            texture1 = "      ";
+            texture2 = "   A ^";
+            texture3 = "   O ¥";
+            texture4 = "  /|─│";
+            texture5 = "  / \\ ";
 		}
 
 

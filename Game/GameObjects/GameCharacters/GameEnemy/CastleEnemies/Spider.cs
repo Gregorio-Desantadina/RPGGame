@@ -11,6 +11,11 @@ namespace MyGameProject.Game.GameObjects
             hp = 25;
             damage = 3;
             speed = 23;
+            texture1 = "      ";
+            texture2 = "      ";
+            texture3 = "  \\|/ ";
+            texture4 = "  3oO ";
+            texture5 = "  /|\\ ";
         }
 
         public override void UseSpecialAttack(List<Character> list)

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using MyGameProject.Game.Start;
 
 namespace MyGameProject.Game.GameObjects
@@ -13,8 +13,13 @@ namespace MyGameProject.Game.GameObjects
             speed = 17;
             charclass = "Snake Tamer";
             Attack2Name = "Cobra attack 20";
-            Attack3Name = "Summon Healing Snake 30";
-            Attack4Name = "Summon Damage Snake 30";
+            Attack3Name = "Summon Damage Snake 30";
+            Attack4Name = "Summon Healing Snake 30";
+            texture1 = "       ";
+            texture2 = "       ";
+            texture3 = "   O   ";
+            texture4 = "  /|\\  ";
+            texture5 = "  / \\  ";
         }
 
         // needs override because UseSpecialAttack/SecondSpecialAttack dont use the enemy list, but the ally one

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace MyGameProject.Game.GameObjects
 {
@@ -11,6 +11,11 @@ namespace MyGameProject.Game.GameObjects
             Attack2Name = "Meteor Rain 40";
             Attack3Name = "Burning 20";
             Attack4Name = "Nothing...";
+            texture1 = "      ";
+            texture2 = "   A  ";
+            texture3 = "   O ð";
+            texture4 = "  /|─│";
+            texture5 = "  / \\ ";
         }
 
 		public override void UseSpecialAttack(List<Character> list)

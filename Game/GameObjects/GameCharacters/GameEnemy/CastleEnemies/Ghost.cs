@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace MyGameProject.Game.GameObjects
 {
@@ -13,7 +13,13 @@ namespace MyGameProject.Game.GameObjects
 			speed = 7;
 			maxmana = 20;
 			mana = 20;
-		}
+            texture1 = "      ";
+            texture2 = "      ";
+            texture3 = "   ô  ";
+            texture4 = "  /▒\\ ";
+            texture5 = "   ░  ";
+        }
+        
 		public override void Actions(List<Character> list, List<Character> allyList)
 		{
 			if (hp > 0)
@@ -28,10 +34,15 @@ namespace MyGameProject.Game.GameObjects
 					SecondSpecialAttack(list);
 				}
 			}
-			else
-			{
-				Console.WriteLine($"{name} dies...");
-			}
+                else
+                {
+                    texture1 = "       ";
+                    texture2 = "       ";
+                    texture3 = "       ";
+                    texture4 = "   o   ";
+                    texture5 = " /▄█▄\\ ";
+                    Console.WriteLine($"{name} esta muerto...");
+                }
 		}
 
 		public override void UseSpecialAttack(List<Character> list)

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace MyGameProject.Game.GameObjects
 {
@@ -12,7 +12,12 @@ namespace MyGameProject.Game.GameObjects
 			hp = 80;
 			damage = 15;
 			speed = 10;
-		}
+            texture1 = "       ";
+            texture2 = "       ";
+            texture3 = " ╔ O   ";
+            texture4 = " ║/|\\  ";
+            texture5 = " ╚/ \\  ";
+        }
 		public override void Actions(List<Character> list, List<Character> allyList)
 		{
 			if (hp > 0)
@@ -26,23 +31,30 @@ namespace MyGameProject.Game.GameObjects
 					SecondSpecialAttack(list);
 				}
 			}
-			else
-			{
-				Console.WriteLine($"{name} dies...");
-			}
+            else
+            {
+                texture1 = "       ";
+                texture2 = "       ";
+                texture3 = "       ";
+                texture4 = "   o   ";
+                texture5 = " /▄█▄\\ ";
+                Console.WriteLine($"{name} esta muerto...");
+                }
 		}
 
 		public override void UseSpecialAttack(List<Character> list)
 		{
 			charged = true;
-			Console.WriteLine($"{name} recharges the bow...");
+            texture4 = "<╣/|\\  ";
+            Console.WriteLine($"{name} recharges the bow...");
 		}
 		public override void SecondSpecialAttack(List<Character> list)
 		{
 			Character target = SelectTarget(list);
 			Console.WriteLine($"{name} shots {target.name}!");
 			target.ReciveDamage(damage * 2);
-			charged = false;
+            texture4 = " ║/|\\  ";
+            charged = false;
 		}
         public override object Clone()
         {

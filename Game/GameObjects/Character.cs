@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace MyGameProject.Game.GameObjects
 {
@@ -11,6 +11,16 @@ namespace MyGameProject.Game.GameObjects
         protected string Attack2Name = "Special Attack 1";
         protected string Attack3Name = "Special Attack 2";
         protected string Attack4Name = "Special Attack 3";
+        public string texture1 = "       ";
+        public string texture2 = "       ";
+        public string texture3 = "   O   ";
+        public string texture4 = "  /|\\  ";
+        public string texture5 = "  / \\  ";
+        public string texture1dead = "       ";
+        public string texture2dead = "       ";
+        public string texture3dead = "       ";
+        public string texture4dead = "   o   ";
+        public string texture5dead = " /▄█▄\\ ";
         public int damage = 10;
         public int hp = 100;
         public int speed = 16;
@@ -80,7 +90,12 @@ namespace MyGameProject.Game.GameObjects
             // This else just exist so characters cant have a turn when they die for burning
             else
             {
-                Console.WriteLine($"{name} dies...");
+                texture1 = "       ";
+                texture2 = "       ";
+                texture3 = "       ";
+                texture4 = "   o   ";
+                texture5 = " /▄█▄\\ ";
+                Console.WriteLine($"{name} esta muerto...");
             }
         }
 
@@ -155,19 +170,31 @@ namespace MyGameProject.Game.GameObjects
             Console.WriteLine($"{name} recives {damage} damage!");
             hp = hp - damage;
             Console.WriteLine($"{name} tiene {hp} de vida...");
+            if (hp <= 0) {
+                texture1 = texture1dead; 
+                texture2 = texture2dead;
+                texture3 = texture3dead;
+                texture4 = texture4dead;
+                texture5 = texture5dead;
+                hp = 0;
+            }
 
         }
 
         // Allows healing
         public void ReciveHeal(int heal)
         {
-            Console.WriteLine($"{name} heals {heal}");
-            if (hp + heal <= maxhp){
-                hp += heal;
-            }
-            else
+            if (hp > 0)
             {
-                hp = maxhp;
+                Console.WriteLine($"{name} heals {heal}");
+                if (hp + heal <= maxhp)
+                {
+                    hp += heal;
+                }
+                else
+                {
+                    hp = maxhp;
+                }
             }
         }
 
@@ -175,7 +202,7 @@ namespace MyGameProject.Game.GameObjects
         public int Random(int limit)
         {
             Random random = new Random();
-            // Generar un n�mero aleatorio en el rango de 1 a 10
+            // Generar un número aleatorio en el rango de 1 a 10
             int numeroAleatorio = random.Next(1, limit);
             return numeroAleatorio;
         }

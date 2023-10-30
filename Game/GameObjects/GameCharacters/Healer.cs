@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace MyGameProject.Game.GameObjects
 {
@@ -12,6 +12,11 @@ namespace MyGameProject.Game.GameObjects
             Attack2Name = "Healing prayer 35";
             Attack3Name = "Groupal regeneration 30";
             Attack4Name = "Small attack";
+            texture1 = "       ";
+            texture2 = "       ";
+            texture3 = "  O ┌─┐";
+            texture4 = " /|\\[╬]";
+            texture5 = " / \\└─┘";
         }
 
         // needs override because UseSpecialAttack/SecondSpecialAttack dont use the enemy list, but the ally one
