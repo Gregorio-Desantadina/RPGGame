@@ -27,10 +27,9 @@ namespace MyGameProject.Game.Start
             string? input = Console.ReadLine();
 
             // Just to test, player will be able to select their characters in the future
-            Character Character3 = new  SnakeTamer(input);
+            Character Character3 = new  Assassin(input);
 
             Character Character1 = new Healer("Amigo");
-
 
             // Creates 2 empty lists
             List<Character> teamList = CreateCharacterList();
@@ -39,7 +38,6 @@ namespace MyGameProject.Game.Start
             // adds character to the list
             teamList = AddList(teamList, Character1);
             teamList = AddList(teamList, Character3);
-            
 
             // Enemy waves (You cant die...)
             EnemyWaves(teamList, enemies);
@@ -52,7 +50,7 @@ namespace MyGameProject.Game.Start
         {
             List<Character> enemyList = CreateCharacterList();
             int dificulty = 1;
-            for (int i = 1; i <= 3; i++) {
+            for (int i = 1; i <= 1; i++) {
                     for(int o = 1; o <= dificulty; o++)
                 {
                     enemyList = CreateEnemyList(enemyType, enemyList, o);
@@ -72,7 +70,6 @@ namespace MyGameProject.Game.Start
 
                 if (teamList.Any(c => c.ReturnHP() > 0))
                 {
-
                     Console.Clear();
                     Camping(teamList);
                 }
@@ -87,6 +84,10 @@ namespace MyGameProject.Game.Start
             if (teamList.Count == 0)
             {
                 Console.WriteLine("Perdiste!");
+            }
+            else if(dificulty >= 3)
+            {
+                FinishedGame(1);
             }
             return teamList;
         }
@@ -340,6 +341,7 @@ namespace MyGameProject.Game.Start
                 Console.WriteLine("Perdiste");
             }
             Console.Write("Quieres jugar otra vez? Y/N: ");
+            Console.ReadKey();
             Start();
         }
     

@@ -30,7 +30,7 @@ namespace MyGameProject.Game.GameObjects
                 Console.WriteLine($"[2] {Attack2Name}");
                 Console.WriteLine($"[3] {Attack3Name}");
                 Console.WriteLine($"[4] {Attack4Name}");
-                Console.Write("...");
+                Console.Write("Ingrese su accion: ");
                 string? election = Console.ReadLine();
                 if (election == "1")
                 {
