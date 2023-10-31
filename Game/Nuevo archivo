@@ -1,0 +1,25 @@
+            while (teamList.Any(c => c.ReturnHP() > 0) && enemyList.Any(c => c.ReturnHP() > 0))
+                {
+                    Console.Clear();
+                    if (teamList.Contains(character))
+                    {
+                        character.StatusManager(enemyList);
+                        character.StatusManager(enemyList, teamList);
+                    }
+                    else if (enemyList.Contains(character))
+                    {
+                        character.StatusManager(teamList);
+                        character.StatusManager(teamList, teamList);
+                    }
+                }
+                    else
+                {
+                    if (teamList.Contains(character))
+                    {
+                        teamList.Remove(character);
+                    }
+                    else if (enemyList.Contains(character))
+                    {
+                        enemyList.Remove(character);
+                    }
+                }
