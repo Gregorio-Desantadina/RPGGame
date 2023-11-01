@@ -6,9 +6,9 @@ namespace MyGameProject.Game.GameObjects
 	{
 		public Ghost(string name) : base(name)
 		{
-			charclass = "Mana Ghost";
-			maxhp = 50;
-			hp = 50;
+			charclass = "Fantasma de mana";
+			maxhp = 40;
+			hp = 40;
 			damage = 7;
 			speed = 7;
 			maxmana = 20;
@@ -39,8 +39,8 @@ namespace MyGameProject.Game.GameObjects
                     texture1 = "       ";
                     texture2 = "       ";
                     texture3 = "       ";
-                    texture4 = "   o   ";
-                    texture5 = " /▄█▄\\ ";
+                    texture4 = "   ô   ";
+                    texture5 = " /░▒░\\ ";
                     Console.WriteLine($"{name} esta muerto...");
                 }
 		}
@@ -50,15 +50,15 @@ namespace MyGameProject.Game.GameObjects
 			Character target = SelectTarget(list);
 			target.SetMana(-20);
 			mana = mana + 20;
-			Console.WriteLine($"{name} steals {target.name} mana!");
+			Console.WriteLine($"{name} le roba mana a {target.name}!");
 			target.ReciveDamage(damage);
 		}
 		public override void SecondSpecialAttack(List<Character> list)
 		{
 			SetMana(-20);
-			foreach (var character in list)
+            Console.WriteLine($"{name} realiza un ataque magico a todo el equipo!");
+            foreach (var character in list)
 			{
-				Console.WriteLine($"{name} does a magic attack to {character.name}");
 				character.ReciveDamage(damage * 2);
 			}
 		}

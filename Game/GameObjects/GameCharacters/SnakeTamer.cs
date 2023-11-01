@@ -11,14 +11,19 @@ namespace MyGameProject.Game.GameObjects
         {
             damage = 10;
             speed = 17;
-            charclass = "Snake Tamer";
-            Attack2Name = "Cobra attack 20";
-            Attack3Name = "Summon Damage Snake 30";
-            Attack4Name = "Summon Healing Snake 30";
+            maxhp = 80;
+            hp = 80;
+            maxmana = 90;
+            mana = 90;
+            charclass = "Domador de serpientes";
+            Attack2Name = "Golpe en conjunto [15]";
+            Attack3Name = "Invocar serpiente de ataque [30]";
+            Attack4Name = "Invocar serpiente de curacion [30]";
+            characterDescription = $"El domador de serpientes es una clase que rapidamente puede generar un ejercito, cuenta con las abilidades para invocar serpientes y volverlas mas fuertes. \n[Golpe en conjunto]: Golpe de poco daño, pero que hace que todas las serpientes ataquen en conjunto. \n[Invocar serpiente de ataque]: Invoca una serpiente que atacara periodicamente, pudiendo infligir veneno. \n[Invocar serpiente de curacion]: Invoca una serpiente que cura aliados periodicamente, si todos los aliados estan con vida maxima realizara un ataque debil";
             texture1 = "       ";
-            texture2 = "       ";
-            texture3 = "   O   ";
-            texture4 = "  /|\\  ";
+            texture2 = "     S ";
+            texture3 = "   O/  ";
+            texture4 = "  /|   ";
             texture5 = "  / \\  ";
         }
 
@@ -90,9 +95,25 @@ namespace MyGameProject.Game.GameObjects
         {
             if (mana >= 30)
             {
-                mana -= 30;
-                Console.WriteLine($"{name} summons a snake");
-                AddToList(list, 1);
+                if (list.Any(c => c is DamageSnake))
+                {
+                    foreach (Character character in list)
+                    {
+                        if (character is DamageSnake){
+                            mana -= 30;
+                            Console.WriteLine($"{name} potencia a {character.ReturnName()}!");
+                            character.maxhp += 3;
+                            character.hp += 3;
+                            character.damage += 1;
+                        }
+                    }
+                }
+                else
+                {
+                    mana -= 30;
+                    Console.WriteLine($"{name} summons a snake");
+                    AddToList(list, 1);
+                }
             }
             else
             {
@@ -103,14 +124,35 @@ namespace MyGameProject.Game.GameObjects
         {
             if (mana >= 30)
             {
-                mana -= 30;
-                Console.WriteLine($"{name} summons a snake");
-                AddToList(list, 2);
+                if (list.Any(c => c is HealingSnake))
+                {
+                    foreach (Character character in list)
+                    {
+                        if (character is HealingSnake)
+                        {
+                            mana -= 30;
+                            Console.WriteLine($"{name} potencia a {character.ReturnName()}!");
+                            character.maxhp += 3;
+                            character.hp += 3;
+                            character.damage += 1;
+                        }
+                    }
+                }
+                else
+                {
+                    mana -= 30;
+                    Console.WriteLine($"{name} summons a snake");
+                    AddToList(list, 2);
+                }
             }
             else
             {
                 Console.WriteLine($"{name} no tiene suficiente mana para utilizar esta habilidad...");
             }
+        }
+        public override object Clone()
+        {
+            return new SnakeTamer(charclass);
         }
     }
 }

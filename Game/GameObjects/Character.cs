@@ -11,6 +11,7 @@ namespace MyGameProject.Game.GameObjects
         protected string Attack2Name = "Special Attack 1";
         protected string Attack3Name = "Special Attack 2";
         protected string Attack4Name = "Special Attack 3";
+        public string characterDescription = $"Esta es la descripcion basica de un personaje, si este mensaje aparece significa que el personaje seleccionade esta en progreso. \n[Ataque 1]: Poco daño \n[Ataque 2]: Mucho daño \n[Ataque 3]: Curacion";
         public string texture1 = "       ";
         public string texture2 = "       ";
         public string texture3 = "   O   ";
@@ -106,28 +107,28 @@ namespace MyGameProject.Game.GameObjects
             Character selection = null;
             foreach (Character character in list)
             {
-                Console.WriteLine($"Target: {character.name}, HP: {character.ReturnHP()}");
+                Console.WriteLine($"Objetivo: {character.name}, HP: {character.ReturnHP()}");
             }
             while (true)
             {
-                Console.Write("Target: ");
+                Console.Write("Objetivo: ");
                 string input = Console.ReadLine();
                 if (int.TryParse(input, out int number))
                 {
 
-                    if (number < list.Count && number >= 0)
+                    if (number-1 < list.Count && number-1 >= 0)
                     {
-                        selection = list[number];
+                        selection = list[number-1];
                         break;
                     }
                     else
                     {
-                        Console.Write("Insert a valid target!");
+                        Console.Write("Inserte un objetivo valido!");
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Insert a valid number!");
+                    Console.WriteLine("Inserte un numero valido!");
                 }
                 
             }
@@ -138,7 +139,7 @@ namespace MyGameProject.Game.GameObjects
         // Basic mana regeneration, most characters use it
         public virtual void Attack(List<Character> list)
         {
-            Console.WriteLine($"{name} recharges mana");
+            Console.WriteLine($"{name} recarga 30 de mana");
             SetMana(30);
         }
 
@@ -167,7 +168,7 @@ namespace MyGameProject.Game.GameObjects
         // Allows to recive damage
         public virtual void ReciveDamage(int damage)
         {
-            Console.WriteLine($"{name} recives {damage} damage!");
+            Console.WriteLine($"{name} recive {damage} de daño!");
             hp = hp - damage;
             Console.WriteLine($"{name} tiene {hp} de vida...");
             if (hp <= 0) {
@@ -186,7 +187,7 @@ namespace MyGameProject.Game.GameObjects
         {
             if (hp > 0)
             {
-                Console.WriteLine($"{name} heals {heal}");
+                Console.WriteLine($"{name} se cura {heal} de vida.");
                 if (hp + heal <= maxhp)
                 {
                     hp += heal;
@@ -231,37 +232,37 @@ namespace MyGameProject.Game.GameObjects
 
         public void FireDamage()
         {
-            Console.WriteLine($"{name} recives {fireDamage} fire damage!");
+            Console.WriteLine($"{name} recive {fireDamage} daño de fuego!");
             hp -= fireDamage;
             fire = fire - 1;
             if (fire != 0){
-                Console.WriteLine($"{name} will burn for {fire} more turns");
+                Console.WriteLine($"{name} va a quemarse por {fire} turnos mas.");
             }
             else
             {
-                Console.WriteLine($"{name} stops buring");
+                Console.WriteLine($"{name} deja de quemarse.");
             }
         }
         public void PoisonDamage()
         {
             int poisondamage = (int)Math.Ceiling(poison / 2.0); // Redondear hacia arriba
-            Console.WriteLine($"{name} recives {poisondamage} poison!");
+            Console.WriteLine($"{name} recive {poisondamage} daño de veneno!");
             hp = hp - poisondamage;
             poison -= (int)Math.Ceiling(poison / 2.0);
             
             if (poison != 0)
              {
-                 Console.WriteLine($"{name} as {poison} poison...");
+                 Console.WriteLine($"{name} tiene {poison} de veneno.");
              }
              else
              {
-                 Console.WriteLine($"{name} stops being poisoned.");
+                 Console.WriteLine($"{name} deja de estar envenenado.");
              }
         }
        
         public void IceDamage()
         {
-            Console.WriteLine($"{name} is frozen!");
+            Console.WriteLine($"{name} esta congelado!");
             ice = ice - 1;
         }
         public void SetSpeed(int speed)

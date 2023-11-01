@@ -6,11 +6,16 @@ namespace MyGameProject.Game.GameObjects
 	{
 		public FireMage(string name) : base(name)
 		{
+			hp = 80;
+			maxhp = 80;
+			maxmana = 80;
+			mana = 80;
 			damage = 7;
-			charclass = "FireMage";
-            Attack2Name = "Meteor Rain 40";
-            Attack3Name = "Burning 20";
-            Attack4Name = "Nothing...";
+			charclass = "Mago de fuego";
+            Attack2Name = "Lluvia de meteoros [40]";
+            Attack3Name = "Llamarada [20]";
+            Attack4Name = "Calcinar [30]";
+            characterDescription = $"El mago de fuego es una clase ideal para hacer daño en area, infligiendo mucho daño a todos los enemigos, pero tambien cuenta con herramientas para objetivos solitarios \n[Lluvia de meteoros]: Ataque de muchisimo daño, el ataque se repite 7 veces, pero tiene muchas probabilidades de fallar. \n[Llamarada]: Ataque que prende fuego a todos los enemigos. \n[Calcinar]: Ataque que hace mucho daño a todos los enemigos prendidos fuego.";
             texture1 = "      ";
             texture2 = "   A  ";
             texture3 = "   O ð";
@@ -50,10 +55,35 @@ namespace MyGameProject.Game.GameObjects
 				mana -= 20;
 				foreach (var character in list)
 				{
-					Console.WriteLine($"{name} sets {character.name} on fire!");
+					Console.WriteLine($"{name} prende a {character.name} en llamas!");
 					character.SetFire(3, damage);
 				}
 			}
 		}
-	}
+        public override void ThirdSpecialAttack(List<Character> list)
+        {
+            if (mana >= 30)
+            {
+                mana -= 30;
+                foreach (var character in list)
+                {
+					if(character.fire >= 0)
+					{
+                        Console.WriteLine($"{name} calcina a {character.name}!");
+						character.ReciveDamage(damage * 2);
+                        character.SetFire(1, damage);
+                    }
+                    
+                }
+            }
+			else
+			{
+                Console.WriteLine($"{name} no tiene suficiente mana para utilizar esta habilidad...");
+            }
+        }
+        public override object Clone()
+        {
+            return new FireMage(charclass);
+        }
+    }
 }

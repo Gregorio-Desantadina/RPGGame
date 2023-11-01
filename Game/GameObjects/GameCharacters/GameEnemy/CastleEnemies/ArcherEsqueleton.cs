@@ -7,9 +7,9 @@ namespace MyGameProject.Game.GameObjects
 		bool charged = false;
 		public ArcherEsqueleton(string name) : base(name)
 		{
-			charclass = "ArcherEsqueleton";
-			maxhp = 80;
-			hp = 80;
+			charclass = "Arquero Esqueleto";
+			maxhp = 50;
+			hp = 50;
 			damage = 15;
 			speed = 10;
             texture1 = "       ";
@@ -46,12 +46,12 @@ namespace MyGameProject.Game.GameObjects
 		{
 			charged = true;
             texture4 = "<╣/|\\  ";
-            Console.WriteLine($"{name} recharges the bow...");
+            Console.WriteLine($"{name} recarga su arco...");
 		}
 		public override void SecondSpecialAttack(List<Character> list)
 		{
 			Character target = SelectTarget(list);
-			Console.WriteLine($"{name} shots {target.name}!");
+			Console.WriteLine($"{name} le dispara a {target.name}!");
 			target.ReciveDamage(damage * 2);
             texture4 = " ║/|\\  ";
             charged = false;

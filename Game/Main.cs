@@ -13,48 +13,150 @@ namespace MyGameProject.Game.Start
         static Random random = new Random();
 
         public void Start()
-        {     
+        {
             // List of possible enemies (Later will move to another document)
             List<Character> enemies = new List<Character>
             {
-                new Ghost("Ghost"),
-                new Esqueleton("Esqueleton"),
-                new ArcherEsqueleton("Archer Esqueleton"),
-                new Spider("Spider")
+                new Ghost("Fantasma"),
+                new Esqueleton("Esqueleto"),
+                new ArcherEsqueleton("Arquero Esqueleto"),
+                new Spider("Araña")
             };
-            Console.WriteLine("El Juego a Comenzado...");
-            Console.Write("Ingrese su nombre: ");
-            string? input = Console.ReadLine();
+            List<Character> allies = new List<Character>
+            {
+                new Assassin("Asesino"),
+                new Berserk("Berserker"),
+                new Executioner("Ejecutor"),
+                new Healer("Curandero"),
+                new FireMage("Mago de fuego"),
+                new IceMage("Mago de hielo"),
+                new SnakeTamer("Domador de serpientes")
+            };
+
+            /*string? input = Console.ReadLine();*/
 
             // Just to test, player will be able to select their characters in the future
-            Character Character3 = new  Assassin(input);
+            
 
-            Character Character1 = new Healer("Amigo");
+            
+
+           
 
             // Creates 2 empty lists
             List<Character> teamList = CreateCharacterList();
             List<Character> enemyList = CreateCharacterList();
 
-            // adds character to the list
-            teamList = AddList(teamList, Character1);
-            teamList = AddList(teamList, Character3);
+            Console.WriteLine("Quieres realizar el tutorial? (Y/N): ");
+            string? input = Console.ReadLine();
+            Console.Clear();
+            if ((input == "y") || (input == "Y") || (input == "Yes") || (input == "yes")) 
+            {
+                
+                teamList.Add(Tutorial(allies));
+                Tutorial2(teamList);
+            }
+            else
+            {
+                
+                teamList.Add(CharacterSelector(allies));
+            }
+            
+            do
+            {
+                Character character = CreateCharacter(allies);
+                if (allies.Any(Character => Character != character))
+                {
+                    Console.Clear();
+                    Console.WriteLine($"En el camino encuentras a un {character.ReturnName()} que se une a tu equipo");
+                    teamList.Add(character);
+                    Console.ReadKey();
+                    break;
+                }
 
+            } while (true);
+            
+            
+            Character boss = new EsqueletonKing("Rey Esquelto");
             // Enemy waves (You cant die...)
-            EnemyWaves(teamList, enemies);
+            EnemyWaves(teamList, enemies, boss);
             enemyList = CreateEnemyList(enemies, enemyList, 2);
-            Fight(teamList, enemyList);
+            Fight(teamList, enemyList, 1 ,1);
+        }
+
+        public Character CharacterSelector(List<Character> list)
+        {
+            int charNumber = 0;
+
+            while (true)
+            {
+                
+                Console.WriteLine($"{list[charNumber].ReturnName()} [HP:{list[charNumber].maxhp}] [Mana:{list[charNumber].maxmana}] [Velocidad: {list[charNumber].speed}]");
+                for (int i = 0; i <= 4; i++) {
+                    PrintPart(list[charNumber], i);
+                    Console.WriteLine("");
+                }
+                Console.WriteLine(list[charNumber].characterDescription);
+                Console.WriteLine($"[↑] Personaje anterior");
+                Console.WriteLine($"[Enter] Seleccionar personaje");
+                Console.WriteLine($"[↓] Personaje siguente");
+                ConsoleKeyInfo keyInfo = Console.ReadKey();
+                if (keyInfo.Key == ConsoleKey.UpArrow)
+                {
+                    charNumber = (charNumber + 1) % list.Count;
+                }
+                else if (keyInfo.Key == ConsoleKey.DownArrow)
+                {
+                    charNumber = (charNumber - 1 + list.Count) % list.Count;
+                }
+                else if (keyInfo.Key == ConsoleKey.Enter)
+                {
+                    break;
+                }
+                Console.Clear();
+            }
+            return list[charNumber];
+        }
+
+        public Character Tutorial(List<Character> list)
+        {
+            Console.WriteLine("Bienvenido al tutorial!");
+            Console.WriteLine("Ahora aprenderemos las mecanicas basicas del juego, presione enter para comenzar.");
+            Console.ReadKey();
+            Console.Clear();
+            Console.WriteLine("Este juego es un RPG por turnos, lo que significa que nos enfrentaremos a diversos enemigos usando diferentes personajes. \nCada uno de ellos tiene diferentes habilidades y caracteristicas unicas.\nComienza eligiendo tu primer personaje (Nuevos personajes se uniran a tu equipo con el tiempo)");
+            Console.ReadKey();
+            Console.Clear();
+            return CharacterSelector(list);
+        }
+
+        public void Tutorial2(List<Character> list)
+        {
+            
+            Console.Clear();
+            Console.WriteLine("Ahora aprenderas las bases del combate.");
+            Console.WriteLine("Cada personaje cuenta con puntos de vida (HP) y energia (Mana)");
+            Console.WriteLine("Por ronda, cara personaje tendra un turno, el orden dependera de la velocidad de los personajes.");
+            Console.WriteLine("Cuando un personaje tiene 0 de HP, este muere y desaparece de tu equipo, si no tienes personajes en tu equipo pierdes.");
+            Console.WriteLine("Los personajes utilizan mana para atacar, cada ataque tiene un cierto coste, \nintentar utilizar un ataque sin cumplir los requerimientos de mana te hara perder un turno");
+            Console.WriteLine("Ahora comenzara una batalla tutorial, ingresa el numero del ataque que quieras realizar y luego selecciona al objetivo del ataque. \n(ingresar algo que no sea un numero de ataque te hara realizar el cuarto ataque) \n");
+            Console.ReadKey();
+            Console.Clear();
+            List<Character> trainingEnemies = CreateCharacterList();
+            trainingEnemies.Add(new Dummy("Maniqui de entrenamiento"));
+            Fight(list, trainingEnemies, 0, 1);
+
         }
 
         // Generate waves of enemies and send them to Fight(), after some rounds, Characters go to Camping()
-        public List<Character> EnemyWaves(List<Character> teamList, List<Character> enemyType)
+        public List<Character> EnemyWaves(List<Character> teamList, List<Character> enemyType, Character boss)
         {
             List<Character> enemyList = CreateCharacterList();
             int dificulty = 1;
-            for (int i = 1; i <= 1; i++) {
+            for (int i = 1; i <= 3; i++) {
                     for(int o = 1; o <= dificulty; o++)
                 {
                     enemyList = CreateEnemyList(enemyType, enemyList, o);
-                    Fight(teamList, enemyList);
+                    Fight(teamList, enemyList, dificulty, o);
                     if(teamList.Count == 0)
                     {
                         break;
@@ -87,6 +189,9 @@ namespace MyGameProject.Game.Start
             }
             else if(dificulty >= 3)
             {
+                
+                enemyList.Add(boss);
+                Fight(teamList, enemyList, dificulty, 1);
                 FinishedGame(1);
             }
             return teamList;
@@ -215,7 +320,7 @@ namespace MyGameProject.Game.Start
             if(number == 5)
             {
                 int hp = character.ReturnHP();
-                Console.Write($"HP={character.hp}   ");
+                Console.Write($" {character.hp}/{character.maxhp}  ");
             }
 
         }
@@ -286,7 +391,7 @@ namespace MyGameProject.Game.Start
         }
 
         // This makes 2 list of characters fight, the turns are distributed depending on speed
-        public void Fight(List<Character> teamList, List<Character> enemyList)
+        public void Fight(List<Character> teamList, List<Character> enemyList, int level, int wave)
         {
            
             while (teamList.Any(c => c.ReturnHP() > 0) && enemyList.Any(c => c.ReturnHP() > 0))
@@ -303,7 +408,7 @@ namespace MyGameProject.Game.Start
 
                         Console.ReadKey(); 
                         Console.Clear();
-                        
+                        Console.WriteLine($"Nivel[{level}] Oleada[{wave}]");
                         PrintCharacters(teamList, enemyList);
                         if (teamList.Contains(character))
                         {
@@ -311,12 +416,19 @@ namespace MyGameProject.Game.Start
                         }
                         else if (enemyList.Contains(character))
                         {
-                            character.StatusManager(teamList, teamList);
+                            character.StatusManager(teamList, enemyList);
                         }
-                        if(teamList.Contains(character) && character.ReturnHP() <= 0)
-                        {
-                            teamList.Remove(character);
+                        foreach(var chara in allList){
+                            if (enemyList.Contains(chara) && chara.ReturnHP() <= 0)
+                            {
+                                enemyList.Remove(chara);
+                            }
+                            if (teamList.Contains(chara) && chara.ReturnHP() <= 0)
+                            {
+                                teamList.Remove(chara);
+                            }
                         }
+                        
                         
                     }
                 }
@@ -341,6 +453,7 @@ namespace MyGameProject.Game.Start
                 Console.WriteLine("Perdiste");
             }
             Console.Write("Quieres jugar otra vez? Y/N: ");
+            Console.Clear();
             Console.ReadKey();
             Start();
         }

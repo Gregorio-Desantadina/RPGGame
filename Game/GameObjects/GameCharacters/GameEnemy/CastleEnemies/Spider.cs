@@ -6,7 +6,7 @@ namespace MyGameProject.Game.GameObjects
     {
         public Spider(string name) : base(name)
         {
-            charclass = "Spider";
+            charclass = "Araña";
             maxhp = 25;
             hp = 25;
             damage = 3;

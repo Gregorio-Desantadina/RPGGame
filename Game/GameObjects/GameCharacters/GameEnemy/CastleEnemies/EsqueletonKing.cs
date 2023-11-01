@@ -2,26 +2,33 @@
 
 namespace MyGameProject.Game.GameObjects
 {
-    public class Esqueleton : Enemy
+    public class EsqueletonKing : Enemy
     {
-        int attackType = 0;
-        public Esqueleton(string name) : base(name)
+        List<Character> summons = new List<Character>
         {
-            charclass = "Esqueleton King";
+            new SmallEsqueleton("Esqueleto pequeño"),
+            new HealerEsqueleton("Esqueleto curador")
+        };
+        int attackType = 1;
+        public EsqueletonKing(string name) : base(name)
+        {
+            charclass = "Rey Esqueleto";
             maxhp = 230;
             hp = 230;
-            damage = 20;
+            damage = 30;
             speed = 10;
-            texture1 = "       ";
-            texture2 = "       ";
-            texture3 = " | O   ";
-            texture4 = " ┼/|\\  ";
-            texture5 = "  / \\  ";
+            texture1 = "   m   ";
+            texture2 = "   Ø   ";
+            texture3 = "o═▀▓▀╗ ";
+            texture4 = "╬ ┌▒┐o ";
+            texture5 = "║ █ █  ";
         }
 
         // Does a random action (each enemy usually overrides this, its just an example)
         public override void Actions(List<Character> list, List<Character> allyList)
         {
+            Console.WriteLine(list[0].ReturnName());
+            Console.WriteLine(allyList[0].ReturnName());
             if (hp > 0)
             {
                 
@@ -45,9 +52,9 @@ namespace MyGameProject.Game.GameObjects
             else
             {
                 texture1 = "       ";
-                texture2 = "       ";
-                texture3 = "       ";
-                texture4 = "   o   ";
+                texture2 = "   ╬   ";
+                texture3 = "   ║   ";
+                texture4 = "   Ø   ";
                 texture5 = " /▄█▄\\ ";
                 Console.WriteLine($"{name} esta muerto...");
             }
@@ -56,7 +63,12 @@ namespace MyGameProject.Game.GameObjects
 
         public override void Attack(List<Character> list)
         {
-            Console.WriteLine($"{name} invoca un esqueleto")
+            Console.WriteLine($"{name} invoca un aliado");
+            Console.WriteLine(list[0].ReturnName());
+            Random random = new Random();
+            int number = random.Next(summons.Count);
+            Character character = (Character)summons[number].Clone();
+            list.Add(character);
         }
 
         public override void UseSpecialAttack(List<Character> list)
@@ -74,7 +86,7 @@ namespace MyGameProject.Game.GameObjects
         }
         public override object Clone()
         {
-            return new Esqueleton(charclass);
+            return new EsqueletonKing(charclass);
         }
     }
 }

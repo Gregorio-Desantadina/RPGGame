@@ -8,10 +8,13 @@ namespace MyGameProject.Game.GameObjects
         {
             damage = 15;
             speed = 15;
-            charclass = "Healer";
-            Attack2Name = "Healing prayer 35";
-            Attack3Name = "Groupal regeneration 30";
-            Attack4Name = "Small attack";
+            maxhp = 90;
+            hp = 90;
+            charclass = "Curandero";
+            Attack2Name = "Rezo curativo [35]";
+            Attack3Name = "Regeneracion grupal [30]";
+            Attack4Name = "Destello";
+            characterDescription = $"El curandero es una clase debil, basada en el apoyo y supervivencia de sus aliados, aunque debil en solitario, puede salvar a sus compañeros de grupo. \n[Rezo curativo]: Cura mucha vida de un objetivo aliado y elimina todos sus efectos de estado. \n[Regeneracion grupal]: Cura un poco de vida de todos los miembros del grupo. \n[Destello]: Ataque debil, unica defensa del curandero.";
             texture1 = "       ";
             texture2 = "       ";
             texture3 = "  O ┌─┐";
@@ -99,6 +102,9 @@ namespace MyGameProject.Game.GameObjects
                 Console.WriteLine($"{name} no tiene suficiente mana para utilizar esta habilidad...");
             }
         }
-
+        public override object Clone()
+        {
+            return new Healer(charclass);
+        }
     }
 }

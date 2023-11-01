@@ -6,9 +6,9 @@ namespace MyGameProject.Game.GameObjects
     {
         public DamageSnake(string name) : base(name)
         {
-            charclass = "Poisonous Snake";
-            maxhp = 10;
-            hp = 10;
+            charclass = "Serpiente venenosa";
+            maxhp = 15;
+            hp = 15;
             damage = 4;
             speed = 11;
             texture1 = "      ";
