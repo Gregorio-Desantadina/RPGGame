@@ -17,8 +17,8 @@ namespace MyGameProject.Game.GameObjects
             mana = 90;
             charclass = "Domador de serpientes";
             Attack2Name = "Golpe en conjunto [15]";
-            Attack3Name = "Invocar serpiente de ataque [30]";
-            Attack4Name = "Invocar serpiente de curacion [30]";
+            Attack3Name = "Invocar serpiente de ataque [40]";
+            Attack4Name = "Invocar serpiente de curacion [40]";
             characterDescription = $"El domador de serpientes es una clase que rapidamente puede generar un ejercito, cuenta con las abilidades para invocar serpientes y volverlas mas fuertes. \n[Golpe en conjunto]: Golpe de poco daño, pero que hace que todas las serpientes ataquen en conjunto. \n[Invocar serpiente de ataque]: Invoca una serpiente que atacara periodicamente, pudiendo infligir veneno. \n[Invocar serpiente de curacion]: Invoca una serpiente que cura aliados periodicamente, si todos los aliados estan con vida maxima realizara un ataque debil";
             texture1 = "       ";
             texture2 = "     S ";
@@ -93,14 +93,14 @@ namespace MyGameProject.Game.GameObjects
         }
         public override void SecondSpecialAttack(List<Character> list)
         {
-            if (mana >= 30)
+            if (mana >= 40)
             {
                 if (list.Any(c => c is DamageSnake))
                 {
                     foreach (Character character in list)
                     {
                         if (character is DamageSnake){
-                            mana -= 30;
+                            mana -= 40;
                             Console.WriteLine($"{name} potencia a {character.ReturnName()}!");
                             character.maxhp += 3;
                             character.hp += 3;
@@ -110,7 +110,7 @@ namespace MyGameProject.Game.GameObjects
                 }
                 else
                 {
-                    mana -= 30;
+                    mana -= 40;
                     Console.WriteLine($"{name} summons a snake");
                     AddToList(list, 1);
                 }
@@ -122,7 +122,7 @@ namespace MyGameProject.Game.GameObjects
         }
         public override void ThirdSpecialAttack(List<Character> list)
         {
-            if (mana >= 30)
+            if (mana >= 40)
             {
                 if (list.Any(c => c is HealingSnake))
                 {
@@ -130,7 +130,7 @@ namespace MyGameProject.Game.GameObjects
                     {
                         if (character is HealingSnake)
                         {
-                            mana -= 30;
+                            mana -= 40;
                             Console.WriteLine($"{name} potencia a {character.ReturnName()}!");
                             character.maxhp += 3;
                             character.hp += 3;
@@ -140,7 +140,7 @@ namespace MyGameProject.Game.GameObjects
                 }
                 else
                 {
-                    mana -= 30;
+                    mana -= 40;
                     Console.WriteLine($"{name} summons a snake");
                     AddToList(list, 2);
                 }

@@ -46,7 +46,7 @@ namespace MyGameProject.Game.GameObjects
         {
             Console.WriteLine($"{name} recarga energia mientras afila su hacha");
             extraDamage += 10;
-            mana += 15;
+            SetMana(15);
         }
         public override void ThirdSpecialAttack(List<Character> list)
         {

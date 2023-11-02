@@ -15,7 +15,7 @@ namespace MyGameProject.Game.GameObjects
             Attack2Name = "Triple golpe [30]";
             Attack3Name = "Golpe pesado [20 HP]";
             Attack4Name = "Sacrificio de sangre [10 HP]";
-            characterDescription = $"El Berserk es una clase de mucha vida, capaz de dar vuelta cualquier batalla gracias a sus habilidades de supervivencia y aumentos de daño. \n[Triple golpe]: Golpea 3 veces golpes de poco daño, el daño aumenta dependiendo cuanta vida le falte al berserker. \n[Golpe pesado]: Ataque de mucho daño que utiliza vida en vez de mana, el daño aumenta dependiendo cuanta vida le falte al berserker \n[Sacrificio de sangre]: El berserk sacrifica vida para recuperar mana, el siguente golpe moral que reciva lo dejara con 1 de vida en vez.";
+            characterDescription = $"El Berserk es una clase de mucha vida, capaz de dar vuelta cualquier batalla gracias a sus habilidades de supervivencia y aumentos de daño. \n[Triple golpe]: Realiza 3 ataques de poco daño, el daño aumenta dependiendo cuanta vida le falte al berserker. \n[Golpe pesado]: Ataque de mucho daño que utiliza vida en vez de mana, el daño aumenta dependiendo cuanta vida le falte al berserker \n[Sacrificio de sangre]: El berserk sacrifica vida para recuperar mana, el siguente golpe moral que reciva lo dejara con 1 de vida en vez.";
             texture1 = "       ";
             texture2 = "     ¶ ";
             texture3 = "   O ║ ";
@@ -56,7 +56,7 @@ namespace MyGameProject.Game.GameObjects
             Console.WriteLine($"{name} Sacrifica sangre para ganar poder...");
             endurance = true;
             ReciveDamage(10);
-            mana += 35;
+            SetMana(35);
         }
         public override void ReciveDamage(int damage)
         {

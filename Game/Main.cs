@@ -4,6 +4,7 @@ using MyGameProject.Game.GameObjects;
 using System.Drawing;
 using System.ComponentModel.Design;
 using System.Security.Cryptography.X509Certificates;
+using System.Windows.Forms;
 
 namespace MyGameProject.Game.Start
 
@@ -22,6 +23,14 @@ namespace MyGameProject.Game.Start
                 new ArcherEsqueleton("Arquero Esqueleto"),
                 new Spider("Araña")
             };
+            List<Character> enemiesJungle = new List<Character>
+            {
+                new DartThrower("Lanza dardos"),
+                new CursedTree("Arbol maldito"),
+                new Lancer("Lancero"),
+                new Worm("Larva")
+            };
+
             List<Character> allies = new List<Character>
             {
                 new Assassin("Asesino"),
@@ -36,13 +45,14 @@ namespace MyGameProject.Game.Start
             /*string? input = Console.ReadLine();*/
 
             // Just to test, player will be able to select their characters in the future
-            
 
-            
 
-           
+
+
+
 
             // Creates 2 empty lists
+            
             List<Character> teamList = CreateCharacterList();
             List<Character> enemyList = CreateCharacterList();
 
@@ -60,7 +70,14 @@ namespace MyGameProject.Game.Start
                 
                 teamList.Add(CharacterSelector(allies));
             }
-            
+            if(teamList.Count() > 1)
+            {
+                teamList.Remove(teamList[1]);
+            }
+            if (teamList.Count() > 1)
+            {
+                teamList.Remove(teamList[1]);
+            }
             do
             {
                 Character character = CreateCharacter(allies);
@@ -69,7 +86,6 @@ namespace MyGameProject.Game.Start
                     Console.Clear();
                     Console.WriteLine($"En el camino encuentras a un {character.ReturnName()} que se une a tu equipo");
                     teamList.Add(character);
-                    Console.ReadKey();
                     break;
                 }
 
@@ -382,7 +398,6 @@ namespace MyGameProject.Game.Start
             {
                 if(character.ReturnHP() <= 0)
                 {
-                    Console.WriteLine("Entre 1 ves");
                     Console.WriteLine(character.ReturnHP());
                     list.Remove(character);
                     //RemoveCharacter(list, character);
@@ -410,11 +425,11 @@ namespace MyGameProject.Game.Start
                         Console.Clear();
                         Console.WriteLine($"Nivel[{level}] Oleada[{wave}]");
                         PrintCharacters(teamList, enemyList);
-                        if (teamList.Contains(character))
+                        if (teamList.Contains(character) && enemyList.Count() >= 1)
                         {
                             character.StatusManager(enemyList, teamList);
                         }
-                        else if (enemyList.Contains(character))
+                        else if (enemyList.Contains(character) && teamList.Count() >= 1)
                         {
                             character.StatusManager(teamList, enemyList);
                         }

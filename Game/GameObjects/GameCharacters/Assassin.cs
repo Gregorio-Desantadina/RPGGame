@@ -33,7 +33,7 @@ namespace MyGameProject.Game.GameObjects
                 mana -= 15;
                 Console.WriteLine($"{name} realiza un corte envenenado a {target.name}.");
                 target.ReciveDamage(damage);
-                target.SetPoison(10);
+                target.SetPoison(15);
             }
             else
             {

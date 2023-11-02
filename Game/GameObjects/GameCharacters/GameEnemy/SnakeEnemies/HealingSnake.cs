@@ -11,8 +11,8 @@ namespace MyGameProject.Game.GameObjects
             hp = 20;
             damage = 6;
             speed = 10;
-            texture1 = "      ";
-            texture2 = "      ";
+            texture1 = "       ";
+            texture2 = "       ";
             texture3 = "  ╔═O  ";
             texture4 = "  ╚═╗  ";
             texture5 = " ♥══╝  ";

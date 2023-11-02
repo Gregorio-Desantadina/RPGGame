@@ -9,7 +9,7 @@ namespace MyGameProject.Game.GameObjects
             charclass = "Araña";
             maxhp = 25;
             hp = 25;
-            damage = 3;
+            damage = 5;
             speed = 23;
             texture1 = "      ";
             texture2 = "      ";
