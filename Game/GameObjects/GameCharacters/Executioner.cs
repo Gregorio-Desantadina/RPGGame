@@ -13,6 +13,7 @@ namespace MyGameProject.Game.GameObjects
             mana = 80;
             damage = 18;
             speed = 9;
+            name = "Onika";
             charclass = "Ejecutor";
             Attack2Name = "Corte de hacha [30]";
             Attack3Name = "Afilar [+20]";

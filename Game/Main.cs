@@ -4,7 +4,7 @@ using MyGameProject.Game.GameObjects;
 using System.Drawing;
 using System.ComponentModel.Design;
 using System.Security.Cryptography.X509Certificates;
-using System.Windows.Forms;
+
 
 namespace MyGameProject.Game.Start
 
@@ -33,13 +33,13 @@ namespace MyGameProject.Game.Start
 
             List<Character> allies = new List<Character>
             {
-                new Assassin("Asesino"),
-                new Berserk("Berserker"),
-                new Executioner("Ejecutor"),
-                new Healer("Curandero"),
-                new FireMage("Mago de fuego"),
-                new IceMage("Mago de hielo"),
-                new SnakeTamer("Domador de serpientes")
+                new Assassin("Hoshi"),
+                new Berserk("Galera"),
+                new Executioner("Onika"),
+                new Healer("Yukishiro"),
+                new FireMage("Salem"),
+                new IceMage("Ayame"),
+                new SnakeTamer("Kobra")
             };
 
             /*string? input = Console.ReadLine();*/
@@ -90,12 +90,23 @@ namespace MyGameProject.Game.Start
                 }
 
             } while (true);
+            Console.ReadKey();
+            Camping(teamList);  
             
+
             
-            Character boss = new EsqueletonKing("Rey Esquelto");
             // Enemy waves (You cant die...)
-            EnemyWaves(teamList, enemies, boss);
-            enemyList = CreateEnemyList(enemies, enemyList, 2);
+            EnemyWaves(teamList, enemies, 1);
+            if(teamList.Count > 1)
+            {
+                Character character = CreateCharacter(allies);
+                Console.Clear();
+                Console.WriteLine($"En el camino encuentras a un {character.ReturnName()} que se une a tu equipo");
+                teamList.Add(character);
+                Console.ReadKey();
+            }
+            EnemyWaves(teamList, enemiesJungle, 2);
+            enemyList = CreateEnemyList(enemiesJungle, enemyList, 2);
             Fight(teamList, enemyList, 1 ,1);
         }
 
@@ -164,7 +175,7 @@ namespace MyGameProject.Game.Start
         }
 
         // Generate waves of enemies and send them to Fight(), after some rounds, Characters go to Camping()
-        public List<Character> EnemyWaves(List<Character> teamList, List<Character> enemyType, Character boss)
+        public List<Character> EnemyWaves(List<Character> teamList, List<Character> enemyType, int boss)
         {
             List<Character> enemyList = CreateCharacterList();
             int dificulty = 1;
@@ -205,10 +216,23 @@ namespace MyGameProject.Game.Start
             }
             else if(dificulty >= 3)
             {
-                
-                enemyList.Add(boss);
+                if(boss == 1)
+                {
+                    enemyList.Add(new EsqueletonKing("Rey Esquelto"));
+                }
+                else if (boss == 2)
+                {
+                    enemyList.Add(new BossWine1("Latigo carnivoro"));
+                    enemyList.Add(new PlantBoss("Capullo gigante"));
+                    enemyList.Add(new BossWine1("Latigo venenoso"));
+                }
+
                 Fight(teamList, enemyList, dificulty, 1);
-                FinishedGame(1);
+                if (teamList.Count != 0 && boss == 2) 
+                {
+                    FinishedGame(1);
+                }
+                
             }
             return teamList;
         }
@@ -218,7 +242,7 @@ namespace MyGameProject.Game.Start
         {
             List<Character> emptyList = new List<Character>();
             Console.Clear();
-            Console.WriteLine("Your team can rest...");
+            Console.WriteLine("Tu equipo acampa y recupera su salud y energia...");
             foreach (var character in teamList)
             {
                 character.ReciveHeal(100);
@@ -347,6 +371,7 @@ namespace MyGameProject.Game.Start
             Random random = new Random();
             int number = random.Next(list.Count);
             Character character = (Character)list[number].Clone();
+            character.name = list[number].name;
             return character;
         }
 

@@ -15,6 +15,7 @@ namespace MyGameProject.Game.GameObjects
             hp = 80;
             maxmana = 90;
             mana = 90;
+            name = "Kobra";
             charclass = "Domador de serpientes";
             Attack2Name = "Golpe en conjunto [15]";
             Attack3Name = "Invocar serpiente de ataque [40]";

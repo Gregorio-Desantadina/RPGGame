@@ -13,6 +13,7 @@ namespace MyGameProject.Game.GameObjects
             hp = 70;
             maxmana = 115;
             mana = 115;
+            name = "Hoshi";
             charclass = "Asesino";
             Attack2Name = "Daga venenosa [15]";
             Attack3Name = "Golpe mortal [10]";

@@ -13,8 +13,8 @@ namespace MyGameProject.Game.GameObjects
         public EsqueletonKing(string name) : base(name)
         {
             charclass = "Rey Esqueleto";
-            maxhp = 230;
-            hp = 230;
+            maxhp = 170;
+            hp = 170;
             damage = 30;
             speed = 10;
             texture1 = "   m   ";

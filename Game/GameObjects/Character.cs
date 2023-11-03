@@ -5,7 +5,7 @@ namespace MyGameProject.Game.GameObjects
     // ICloneable means it can generate copies of itself
     public class Character :ICloneable
     {
-        public string name;
+        public string name = "BAse";
         public string charclass = "Basic";
         protected string Attack1Name = "Mana recharge";
         protected string Attack2Name = "Special Attack 1";
@@ -32,11 +32,13 @@ namespace MyGameProject.Game.GameObjects
         public int fireDamage = 0;
         private int poison = 0;
         private int ice = 0;
+        public bool alive = false;
         public Character(string name)
         {
             this.name = name;
         }
-        
+
+        public virtual void Reborn() {  } public virtual void Attack() { }
 
         public string ReturnName()
         {
@@ -105,9 +107,11 @@ namespace MyGameProject.Game.GameObjects
         public virtual Character SelectTarget(List<Character> list)
         {
             Character selection = null;
+            int numbers = 1;
             foreach (Character character in list)
             {
-                Console.WriteLine($"Objetivo: {character.name}, HP: {character.ReturnHP()}");
+                Console.WriteLine($"[{numbers}]: {character.name}, HP: {character.ReturnHP()}");
+                numbers ++;
             }
             while (true)
             {
@@ -183,7 +187,7 @@ namespace MyGameProject.Game.GameObjects
         }
 
         // Allows healing
-        public void ReciveHeal(int heal)
+        public virtual void ReciveHeal(int heal)
         {
             if (hp > 0)
             {
@@ -233,7 +237,7 @@ namespace MyGameProject.Game.GameObjects
         public void FireDamage()
         {
             Console.WriteLine($"{name} recive {fireDamage} daño de fuego!");
-            hp -= fireDamage;
+            ReciveDamage(fireDamage);
             fire = fire - 1;
             if (fire != 0){
                 Console.WriteLine($"{name} va a quemarse por {fire} turnos mas.");
@@ -247,7 +251,7 @@ namespace MyGameProject.Game.GameObjects
         {
             int poisondamage = (int)Math.Ceiling(poison / 2.0); // Redondear hacia arriba
             Console.WriteLine($"{name} recive {poisondamage} daño de veneno!");
-            hp = hp - poisondamage;
+            ReciveDamage(poisondamage);
             poison -= (int)Math.Ceiling(poison / 2.0);
             
             if (poison != 0)

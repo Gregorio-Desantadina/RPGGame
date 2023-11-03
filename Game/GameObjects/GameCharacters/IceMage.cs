@@ -9,7 +9,8 @@ namespace MyGameProject.Game.GameObjects
 			damage = 7;
 			maxhp = 75;
 			hp = 75;
-			charclass = "Mago de hielo";
+            name = "Ayame";
+            charclass = "Mago de hielo";
 			Attack2Name = "Perforar [25]";
 			Attack3Name = "Congelar [40]";
 			Attack4Name = "Tormenta [15]";

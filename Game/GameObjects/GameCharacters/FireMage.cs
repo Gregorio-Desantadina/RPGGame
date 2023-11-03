@@ -11,7 +11,8 @@ namespace MyGameProject.Game.GameObjects
 			maxmana = 80;
 			mana = 80;
 			damage = 7;
-			charclass = "Mago de fuego";
+            name = "Salem";
+            charclass = "Mago de fuego";
             Attack2Name = "Lluvia de meteoros [40]";
             Attack3Name = "Llamarada [20]";
             Attack4Name = "Calcinar [30]";

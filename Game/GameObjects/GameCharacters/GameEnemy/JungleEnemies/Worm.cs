@@ -22,13 +22,13 @@ namespace MyGameProject.Game.GameObjects
         {
             Character target = SelectTarget(list);
             Console.WriteLine($"{name} escupe sobre {target.name}!");
-            target.RecivePoson(damage);
+            target.SetPoison(damage);
         }
         public override void SecondSpecialAttack(List<Character> list)
         {
             Character target = SelectTarget(list);
             Console.WriteLine($"{name} escupe sobre {target.name}!");
-            target.RecivePoison(damage);
+            target.SetPoison(damage);
         }
         public override object Clone()
         {

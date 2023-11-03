@@ -11,6 +11,7 @@ namespace MyGameProject.Game.GameObjects
             maxhp = 100;
             maxmana = 60;
             mana = 60;
+            name = "Galera";
             charclass = "Berserker";
             Attack2Name = "Triple golpe [30]";
             Attack3Name = "Golpe pesado [20 HP]";

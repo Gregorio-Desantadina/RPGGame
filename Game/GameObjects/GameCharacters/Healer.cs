@@ -10,6 +10,7 @@ namespace MyGameProject.Game.GameObjects
             speed = 15;
             maxhp = 90;
             hp = 90;
+            name = "Yukishiro";
             charclass = "Curandero";
             Attack2Name = "Rezo curativo [35]";
             Attack3Name = "Regeneracion grupal [30]";
