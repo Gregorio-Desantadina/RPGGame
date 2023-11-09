@@ -46,7 +46,7 @@ namespace MyGameProject.Game.GameObjects
         public override void SecondSpecialAttack(List<Character> list)
         {
             Console.WriteLine($"{name} recarga energia mientras afila su hacha");
-            extraDamage += 10;
+            extraDamage += 15;
             SetMana(15);
         }
         public override void ThirdSpecialAttack(List<Character> list)
@@ -69,7 +69,7 @@ namespace MyGameProject.Game.GameObjects
             }
             else
             {
-                Console.WriteLine($"{target.name} no tiene vida suficiente para ser ejecutado...");
+                Console.WriteLine($"{target.name} no tiene vida suficiente para ser ejecutado [{((target.maxhp / 3) + extraDamage)}]...");
             }
 
         }

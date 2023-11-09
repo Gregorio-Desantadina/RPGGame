@@ -7,8 +7,8 @@ namespace MyGameProject.Game.GameObjects
         public Esqueleton(string name) : base(name)
         {
             charclass = "Esqueleto";
-            maxhp = 60;
-            hp = 60;
+            maxhp = 50;
+            hp = 50;
             damage = 6;
             speed = 15;
             texture1 = "       ";

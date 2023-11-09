@@ -9,7 +9,7 @@ namespace MyGameProject.Game.GameObjects
             charclass = "Araña";
             maxhp = 25;
             hp = 25;
-            damage = 5;
+            damage = 7;
             speed = 23;
             texture1 = "      ";
             texture2 = "      ";
@@ -29,7 +29,7 @@ namespace MyGameProject.Game.GameObjects
             Character target = SelectTarget(list);
             Console.WriteLine($"{name} realiza un golpe venenoso a {target.name}!");
             target.ReciveDamage(damage);
-            target.SetPoison(4);
+            target.SetPoison(8);
         }
         public override object Clone()
         {

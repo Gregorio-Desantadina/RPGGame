@@ -7,8 +7,8 @@ namespace MyGameProject.Game.GameObjects
         public CursedTree(string name) : base(name)
         {
             charclass = "Arbol maldito";
-            maxhp = 90;
-            hp = 90;
+            maxhp = 70;
+            hp = 70;
             damage = 8;
             speed = 15;
             texture1 = " \\ | |/";
@@ -28,7 +28,7 @@ namespace MyGameProject.Game.GameObjects
         {
             Character target = SelectTarget(list);
             Console.WriteLine($"{name} le roba el mana a {target.name}!");
-            target.SetMana(-30);
+            target.SetMana(-20);
         }
         public override object Clone()
         {

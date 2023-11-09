@@ -68,7 +68,7 @@ namespace MyGameProject.Game.GameObjects
                 mana -= 30;
                 foreach (var character in list)
                 {
-					if(character.fire >= 0)
+					if(character.fire > 0)
 					{
                         Console.WriteLine($"{name} calcina a {character.name}!");
 						character.ReciveDamage(damage * 2);

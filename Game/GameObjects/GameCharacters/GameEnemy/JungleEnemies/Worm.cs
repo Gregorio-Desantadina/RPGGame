@@ -7,8 +7,8 @@ namespace MyGameProject.Game.GameObjects
         public Worm(string name) : base(name)
         {
             charclass = "Larva";
-            maxhp = 90;
-            hp = 90;
+            maxhp = 50;
+            hp = 50;
             damage = 8;
             speed = 15;
             texture1 = "       ";

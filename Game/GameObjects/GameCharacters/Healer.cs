@@ -7,14 +7,14 @@ namespace MyGameProject.Game.GameObjects
         public Healer(string name) : base(name)
         {
             damage = 15;
-            speed = 15;
+            speed = 16;
             maxhp = 90;
             hp = 90;
             name = "Yukishiro";
             charclass = "Curandero";
             Attack2Name = "Rezo curativo [35]";
             Attack3Name = "Regeneracion grupal [30]";
-            Attack4Name = "Destello";
+            Attack4Name = "Destello [15]";
             characterDescription = $"El curandero es una clase debil, basada en el apoyo y supervivencia de sus aliados, aunque debil en solitario, puede salvar a sus compañeros de grupo. \n[Rezo curativo]: Cura mucha vida de un objetivo aliado y elimina todos sus efectos de estado. \n[Regeneracion grupal]: Cura un poco de vida de todos los miembros del grupo. \n[Destello]: Ataque debil, unica defensa del curandero.";
             texture1 = "       ";
             texture2 = "       ";

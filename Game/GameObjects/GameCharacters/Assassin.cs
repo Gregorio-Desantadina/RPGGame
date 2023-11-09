@@ -11,14 +11,14 @@ namespace MyGameProject.Game.GameObjects
             speed = 21;
             maxhp = 70;
             hp = 70;
-            maxmana = 115;
+            maxmana = 105;
             mana = 115;
             name = "Hoshi";
             charclass = "Asesino";
             Attack2Name = "Daga venenosa [15]";
-            Attack3Name = "Golpe mortal [10]";
+            Attack3Name = "Golpe mortal [15]";
             Attack4Name = "Abrir herida [15]";
-            characterDescription = $"El asesino es una clase agil de poca vida, con sus ataques puede acumular daño progresivamente. \n[Daga venenosa]: Un ataque de poco daño pero que envenena al enemigo. \n[Ataque 2]: Ataque de daño medio, usarlo hara el veneno en el enemigo 0, pero aumentara el daño dependiendo del veneno que el objetivo tenia. \n[Abrir herida]: Triplica el veneno del enemigo.";
+            characterDescription = $"El asesino es una clase agil de poca vida, con sus ataques puede acumular daño progresivamente. \n[Daga venenosa]: Un ataque de poco daño pero que envenena al enemigo. \n[Ataque 2]: Ataque de daño medio, usarlo hara el veneno en el enemigo 0, pero aumentara el daño dependiendo del veneno que el objetivo tenia, gana un turno extra. \n[Abrir herida]: Triplica el veneno del enemigo.";
             texture1 = "       ";
             texture2 = "       ";
             texture3 = "   O | ";
@@ -43,13 +43,14 @@ namespace MyGameProject.Game.GameObjects
         }
         public override void SecondSpecialAttack(List<Character> list)
         {
-            if (mana >= 10)
+            if (mana >= 15)
             {
                 Character target = SelectTarget(list);
-                mana = mana - 10;
+                mana = mana - 15;
                 Console.WriteLine($"{name} apuñala a {target.name}!"); 
-                target.ReciveDamage(damage + (Random(4)) + (target.ReturnPosion()));
+                target.ReciveDamage(damage + (Random(4)) + (target.ReturnPosion()) * 2);
                 target.SetPoison(- target.ReturnPosion());
+                SetExtraTurn(1);
             }
             else
             {

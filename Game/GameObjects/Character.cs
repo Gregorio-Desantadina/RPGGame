@@ -32,6 +32,7 @@ namespace MyGameProject.Game.GameObjects
         public int fireDamage = 0;
         private int poison = 0;
         private int ice = 0;
+        private int extraTurn = 0;
         public bool alive = false;
         public Character(string name)
         {
@@ -232,6 +233,13 @@ namespace MyGameProject.Game.GameObjects
             {
                 Actions(list, allyList);
             }
+            if(extraTurn > 0)
+            {
+                Console.WriteLine($"{name} tiene un turno extra.");
+                Actions(list, allyList);
+                extraTurn -= 1;
+            }
+
         }
 
         public void FireDamage()
@@ -310,6 +318,11 @@ namespace MyGameProject.Game.GameObjects
         public int ReturnMana()
         {
             return mana;
+        }
+
+        public void SetExtraTurn(int quantity)
+        {
+            extraTurn += quantity;
         }
 
         // Allows the class to create a new class of the same type, each character has its how Clone(), used in the creation of enemies

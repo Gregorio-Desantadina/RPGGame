@@ -7,8 +7,8 @@ namespace MyGameProject.Game.GameObjects
         public DamageSnake(string name) : base(name)
         {
             charclass = "Serpiente venenosa";
-            maxhp = 15;
-            hp = 15;
+            maxhp = 8;
+            hp = 8;
             damage = 4;
             speed = 11;
             texture1 = "       ";

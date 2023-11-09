@@ -26,13 +26,16 @@ namespace MyGameProject.Game.GameObjects
 
         public override void UseSpecialAttack(List<Character> list)
 		{
-			if (mana >= 25)
+            
+
+            if (mana >= 25)
 			{
                 Character target = SelectTarget(list);
+				int buff = target.ReturnSpeed();
                 mana = mana - 25;
 				Console.WriteLine($"{name} perfora a {target.name} con un tempano de hielo y lo ralentiza.");
-				target.ReciveDamage(damage * 2);
-                target.SetSpeed(-4);
+				target.ReciveDamage(damage * 2 - (buff -= speed));
+                target.SetSpeed(-5);
 
             }
 			else
@@ -61,9 +64,10 @@ namespace MyGameProject.Game.GameObjects
 				mana -= 15;
 				foreach (var character in list)
 				{
-					Console.WriteLine($"{name} ralentiza a {character.name}");
-                    character.ReciveDamage(damage);
-                    character.SetSpeed(-4);
+                    int buff = character.ReturnSpeed();
+                    Console.WriteLine($"{name} ralentiza a {character.name}");
+                    character.ReciveDamage(damage - (buff -= speed) / 2);
+                    character.SetSpeed(-5);
 				}
 			}
         }

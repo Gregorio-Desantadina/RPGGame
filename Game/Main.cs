@@ -97,7 +97,7 @@ namespace MyGameProject.Game.Start
             
             // Enemy waves (You cant die...)
             EnemyWaves(teamList, enemies, 1);
-            if(teamList.Count > 1)
+            if(teamList.Count <= 1 && teamList.Count != 0)
             {
                 Character character = CreateCharacter(allies);
                 Console.Clear();
@@ -105,6 +105,7 @@ namespace MyGameProject.Game.Start
                 teamList.Add(character);
                 Console.ReadKey();
             }
+            
             EnemyWaves(teamList, enemiesJungle, 2);
             enemyList = CreateEnemyList(enemiesJungle, enemyList, 2);
             Fight(teamList, enemyList, 1 ,1);
@@ -224,7 +225,7 @@ namespace MyGameProject.Game.Start
                 {
                     enemyList.Add(new BossWine1("Latigo carnivoro"));
                     enemyList.Add(new PlantBoss("Capullo gigante"));
-                    enemyList.Add(new BossWine1("Latigo venenoso"));
+                    enemyList.Add(new BossWine2("Latigo venenoso"));
                 }
 
                 Fight(teamList, enemyList, dificulty, 1);
@@ -241,13 +242,30 @@ namespace MyGameProject.Game.Start
         public List<Character> Camping(List<Character> teamList)
         {
             List<Character> emptyList = new List<Character>();
+            List<Character> removeList = new List<Character>();
             Console.Clear();
             Console.WriteLine("Tu equipo acampa y recupera su salud y energia...");
             foreach (var character in teamList)
             {
-                character.ReciveHeal(100);
-                character.SetMana(100);
+                if (character is DamageSnake || character is HealingSnake)
+                {
+                    removeList.Add(character);
+                }
+                else
+                {
+                    character.ReciveHeal(100);
+                    character.SetMana(100);
+                }
             }
+            while (removeList.Count() != 0) 
+            {
+                teamList.Remove(removeList[0]);
+                removeList.Remove(removeList[0]);
+                if(removeList.Count() == 0)
+                {
+                    break;
+                }
+            } 
             PrintCharacters(teamList, emptyList);
             Console.ReadKey();
             Console.Clear();

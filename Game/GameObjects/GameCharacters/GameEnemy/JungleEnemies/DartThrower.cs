@@ -7,8 +7,8 @@ namespace MyGameProject.Game.GameObjects
         public DartThrower(string name) : base(name)
         {
             charclass = "Esqueleto";
-            maxhp = 50;
-            hp = 50;
+            maxhp = 40;
+            hp = 40;
             damage = 1;
             speed = 20;
             texture1 = "       ";
@@ -26,7 +26,7 @@ namespace MyGameProject.Game.GameObjects
                 Character target = SelectTarget(list);
                 Console.WriteLine($"{name} dispara a {target.name}!");
                 target.ReciveDamage(damage);
-                target.SetPoison(6);
+                target.SetPoison(5);
             }
         }
         public override void SecondSpecialAttack(List<Character> list)

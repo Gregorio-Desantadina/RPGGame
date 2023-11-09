@@ -103,9 +103,7 @@ namespace MyGameProject.Game.GameObjects
                         if (character is DamageSnake){
                             mana -= 40;
                             Console.WriteLine($"{name} potencia a {character.ReturnName()}!");
-                            character.maxhp += 3;
-                            character.hp += 3;
-                            character.damage += 1;
+                            character.SetExtraTurn(1);
                         }
                     }
                 }
@@ -133,9 +131,7 @@ namespace MyGameProject.Game.GameObjects
                         {
                             mana -= 40;
                             Console.WriteLine($"{name} potencia a {character.ReturnName()}!");
-                            character.maxhp += 3;
-                            character.hp += 3;
-                            character.damage += 1;
+                            character.SetExtraTurn(1);
                         }
                     }
                 }

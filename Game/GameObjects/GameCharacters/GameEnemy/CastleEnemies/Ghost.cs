@@ -9,7 +9,7 @@ namespace MyGameProject.Game.GameObjects
 			charclass = "Fantasma de mana";
 			maxhp = 40;
 			hp = 40;
-			damage = 7;
+			damage = 5;
 			speed = 7;
 			maxmana = 20;
 			mana = 20;
