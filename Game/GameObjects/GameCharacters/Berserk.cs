@@ -4,7 +4,6 @@ namespace MyGameProject.Game.GameObjects
 {
     public class Berserk : Character
     {
-        bool endurance = false;
         public Berserk(string name) : base(name)
         {
             hp = 100;
@@ -60,21 +59,7 @@ namespace MyGameProject.Game.GameObjects
             ReciveDamage(10);
             SetMana(35);
         }
-        public override void ReciveDamage(int damage)
-        {
-            if ((endurance == true) && (damage >= hp))
-            {
-                endurance = false;
-                hp = 1;
-            }
-            else
-            {
-                hp = hp - damage;
-            }
-            Console.WriteLine($"{name} recives {damage} damage!");
-            Console.WriteLine($"{name} tiene {hp} de vida...");
-
-        }
+        
         public override object Clone()
         {
             return new Berserk(charclass);

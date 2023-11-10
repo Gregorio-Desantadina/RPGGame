@@ -39,7 +39,10 @@ namespace MyGameProject.Game.Start
                 new Healer("Yukishiro"),
                 new FireMage("Salem"),
                 new IceMage("Ayame"),
-                new SnakeTamer("Kobra")
+                new SnakeTamer("Kobra"),
+                new Hitter("Bibi"),
+                new Necromancer("Mortis"),
+                new Shield("Sin nombre")
             };
 
             /*string? input = Console.ReadLine();*/
@@ -52,25 +55,25 @@ namespace MyGameProject.Game.Start
 
 
             // Creates 2 empty lists
-            
+
             List<Character> teamList = CreateCharacterList();
             List<Character> enemyList = CreateCharacterList();
 
             Console.WriteLine("Quieres realizar el tutorial? (Y/N): ");
             string? input = Console.ReadLine();
             Console.Clear();
-            if ((input == "y") || (input == "Y") || (input == "Yes") || (input == "yes")) 
+            if ((input == "y") || (input == "Y") || (input == "Yes") || (input == "yes"))
             {
-                
+
                 teamList.Add(Tutorial(allies));
                 Tutorial2(teamList);
             }
             else
             {
-                
+
                 teamList.Add(CharacterSelector(allies));
             }
-            if(teamList.Count() > 1)
+            if (teamList.Count() > 1)
             {
                 teamList.Remove(teamList[1]);
             }
@@ -91,13 +94,13 @@ namespace MyGameProject.Game.Start
 
             } while (true);
             Console.ReadKey();
-            Camping(teamList);  
-            
+            Camping(teamList);
 
-            
+
+
             // Enemy waves (You cant die...)
             EnemyWaves(teamList, enemies, 1);
-            if(teamList.Count <= 1 && teamList.Count != 0)
+            if (teamList.Count <= 1 && teamList.Count != 0)
             {
                 Character character = CreateCharacter(allies);
                 Console.Clear();
@@ -105,10 +108,20 @@ namespace MyGameProject.Game.Start
                 teamList.Add(character);
                 Console.ReadKey();
             }
-            
+
+            // Returns all values to original
+            foreach (var character in teamList) 
+            {
+                if(character is Hitter)
+                {
+                    character.maxmana = 60;
+                    character.mana = 60;
+                }
+            }
+
             EnemyWaves(teamList, enemiesJungle, 2);
             enemyList = CreateEnemyList(enemiesJungle, enemyList, 2);
-            Fight(teamList, enemyList, 1 ,1);
+            Fight(teamList, enemyList, 1, 1);
         }
 
         public Character CharacterSelector(List<Character> list)
@@ -117,9 +130,10 @@ namespace MyGameProject.Game.Start
 
             while (true)
             {
-                
+
                 Console.WriteLine($"{list[charNumber].ReturnName()} [HP:{list[charNumber].maxhp}] [Mana:{list[charNumber].maxmana}] [Velocidad: {list[charNumber].speed}]");
-                for (int i = 0; i <= 4; i++) {
+                for (int i = 0; i <= 4; i++)
+                {
                     PrintPart(list[charNumber], i);
                     Console.WriteLine("");
                 }
@@ -159,7 +173,7 @@ namespace MyGameProject.Game.Start
 
         public void Tutorial2(List<Character> list)
         {
-            
+
             Console.Clear();
             Console.WriteLine("Ahora aprenderas las bases del combate.");
             Console.WriteLine("Cada personaje cuenta con puntos de vida (HP) y energia (Mana)");
@@ -180,12 +194,13 @@ namespace MyGameProject.Game.Start
         {
             List<Character> enemyList = CreateCharacterList();
             int dificulty = 1;
-            for (int i = 1; i <= 3; i++) {
-                    for(int o = 1; o <= dificulty; o++)
+            for (int i = 1; i <= 3; i++)
+            {
+                for (int o = 1; o <= dificulty; o++)
                 {
                     enemyList = CreateEnemyList(enemyType, enemyList, o);
                     Fight(teamList, enemyList, dificulty, o);
-                    if(teamList.Count == 0)
+                    if (teamList.Count == 0)
                     {
                         break;
                     }
@@ -195,8 +210,8 @@ namespace MyGameProject.Game.Start
                     break;
                 }
                 dificulty += 1;
-                
-                
+
+
 
                 if (teamList.Any(c => c.ReturnHP() > 0))
                 {
@@ -209,15 +224,15 @@ namespace MyGameProject.Game.Start
                 {
                     FinishedGame(0);
                 }
-                
+
             }
             if (teamList.Count == 0)
             {
                 Console.WriteLine("Perdiste!");
             }
-            else if(dificulty >= 3)
+            else if (dificulty >= 3)
             {
-                if(boss == 1)
+                if (boss == 1)
                 {
                     enemyList.Add(new EsqueletonKing("Rey Esquelto"));
                 }
@@ -229,11 +244,11 @@ namespace MyGameProject.Game.Start
                 }
 
                 Fight(teamList, enemyList, dificulty, 1);
-                if (teamList.Count != 0 && boss == 2) 
+                if (teamList.Count != 0 && boss == 2)
                 {
                     FinishedGame(1);
                 }
-                
+
             }
             return teamList;
         }
@@ -247,7 +262,7 @@ namespace MyGameProject.Game.Start
             Console.WriteLine("Tu equipo acampa y recupera su salud y energia...");
             foreach (var character in teamList)
             {
-                if (character is DamageSnake || character is HealingSnake)
+                if (character is Enemy)
                 {
                     removeList.Add(character);
                 }
@@ -257,15 +272,15 @@ namespace MyGameProject.Game.Start
                     character.SetMana(100);
                 }
             }
-            while (removeList.Count() != 0) 
+            while (removeList.Count() != 0)
             {
                 teamList.Remove(removeList[0]);
                 removeList.Remove(removeList[0]);
-                if(removeList.Count() == 0)
+                if (removeList.Count() == 0)
                 {
                     break;
                 }
-            } 
+            }
             PrintCharacters(teamList, emptyList);
             Console.ReadKey();
             Console.Clear();
@@ -275,9 +290,9 @@ namespace MyGameProject.Game.Start
         // Create the textures for the game!
         public void PrintCharacters(List<Character> list, List<Character> list2)
         {
-            
+
             List<Character> list3 = new List<Character>();
-            if(list.Count > list2.Count)
+            if (list.Count > list2.Count)
             {
                 list3 = list;
             }
@@ -285,34 +300,34 @@ namespace MyGameProject.Game.Start
             {
                 list3 = list2;
             }
-            for (int o = 0; o <= list3.Count; o+=3)
+            for (int o = 0; o <= list3.Count; o += 3)
             {
-                
+
                 for (int i = 0; i <= 6; i++)
                 {
-                    
+
                     Console.Write($"   ");
                     if (list.Count > o && list[o] != null)
-                    {  
+                    {
                         PrintPart(list[o], i);
                     }
                     else
                     {
                         Console.Write("       ");
                     }
-                    if (list.Count > o+1 && list[o+1] != null)
+                    if (list.Count > o + 1 && list[o + 1] != null)
                     {
 
-                        PrintPart(list[o+1], i);
+                        PrintPart(list[o + 1], i);
                     }
                     else
                     {
                         Console.Write("       ");
                     }
-                    if (list.Count > o+2 && list[o+2] != null)
+                    if (list.Count > o + 2 && list[o + 2] != null)
                     {
 
-                        PrintPart(list[o+2], i);
+                        PrintPart(list[o + 2], i);
                     }
                     else
                     {
@@ -321,7 +336,7 @@ namespace MyGameProject.Game.Start
                     Console.Write("          ");
                     if (list2.Count > o && list2[o] != null)
                     {
-                        
+
                         PrintPart(list2[o], i);
                     }
                     else
@@ -350,7 +365,7 @@ namespace MyGameProject.Game.Start
                     Console.WriteLine(" ");
                 }
             }
-            
+
         }
         public void PrintPart(Character character, int number)
         {
@@ -372,10 +387,10 @@ namespace MyGameProject.Game.Start
                 Console.Write($"{character.texture4}  ");
             }
             if (number == 4)
-            {    
+            {
                 Console.Write($"{character.texture5}  ");
             }
-            if(number == 5)
+            if (number == 5)
             {
                 int hp = character.ReturnHP();
                 Console.Write($" {character.hp}/{character.maxhp}  ");
@@ -418,40 +433,12 @@ namespace MyGameProject.Game.Start
             return list;
         }
 
-        // Removes a character from a list
-        public void RemoveCharacter(List<Character> list, Character character)
-        {
-            var remove = character;
-            if (list.Contains(character))
-            {
-                Console.WriteLine("gogdgdsg");
-               /// list.Remove();
-            }
-            else
-            {
-                Console.WriteLine("no");
-            }
-            
-        }
-
-        // Check if any character HP is less than 0
-        public void RemoveCheckHP(List<Character> list)
-        {
-            foreach(var character in list)
-            {
-                if(character.ReturnHP() <= 0)
-                {
-                    Console.WriteLine(character.ReturnHP());
-                    list.Remove(character);
-                    //RemoveCharacter(list, character);
-                }
-            }
-        }
+        
 
         // This makes 2 list of characters fight, the turns are distributed depending on speed
         public void Fight(List<Character> teamList, List<Character> enemyList, int level, int wave)
         {
-           
+
             while (teamList.Any(c => c.ReturnHP() > 0) && enemyList.Any(c => c.ReturnHP() > 0))
             {
                 var allList = teamList.Concat(enemyList).OrderByDescending(c => c.ReturnSpeed());
@@ -464,7 +451,7 @@ namespace MyGameProject.Game.Start
                     if (teamList.Any(obj => obj.ReturnHP() > 0) || enemyList.Any(obj => obj.ReturnHP() > 0))
                     {
 
-                        Console.ReadKey(); 
+                        Console.ReadKey();
                         Console.Clear();
                         Console.WriteLine($"Nivel[{level}] Oleada[{wave}]");
                         PrintCharacters(teamList, enemyList);
@@ -476,23 +463,31 @@ namespace MyGameProject.Game.Start
                         {
                             character.StatusManager(teamList, enemyList);
                         }
-                        foreach(var chara in allList){
+                        foreach (var chara in allList)
+                        {
                             if (enemyList.Contains(chara) && chara.ReturnHP() <= 0)
                             {
                                 enemyList.Remove(chara);
+                                foreach(var character2 in teamList)
+                                {
+                                    if (character2 is Necromancer)
+                                    {
+                                        character2.Corpses(chara);
+                                    }
+                                }
                             }
                             if (teamList.Contains(chara) && chara.ReturnHP() <= 0)
                             {
                                 teamList.Remove(chara);
                             }
                         }
-                        
-                        
+
+
                     }
                 }
             }
             if (teamList.Any(c => c.ReturnHP() > 0))
-                {
+            {
                 enemyList.Clear();
             }
             else
@@ -515,7 +510,7 @@ namespace MyGameProject.Game.Start
             Console.ReadKey();
             Start();
         }
-    
-        
+
+
     }
 }

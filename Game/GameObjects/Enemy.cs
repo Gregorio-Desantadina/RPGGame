@@ -39,6 +39,7 @@ namespace MyGameProject.Game.GameObjects
         // Selects a random target for attacks
         public override Character SelectTarget(List<Character> list)
         {
+            
             Character selection = null;
             Random random = new Random();
             int number = random.Next(list.Count); 

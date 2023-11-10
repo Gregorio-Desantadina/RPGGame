@@ -32,7 +32,12 @@ namespace MyGameProject.Game.GameObjects
         public int fireDamage = 0;
         private int poison = 0;
         private int ice = 0;
+        public int extraDamage = 0;
+        public int shield = 0;
+        public int shieldDuration = 0;
         private int extraTurn = 0;
+        public bool endurance = false;
+        public int mark = 0;
         public bool alive = false;
         public Character(string name)
         {
@@ -173,17 +178,22 @@ namespace MyGameProject.Game.GameObjects
         // Allows to recive damage
         public virtual void ReciveDamage(int damage)
         {
-            Console.WriteLine($"{name} recive {damage} de daño!");
-            hp = hp - damage;
-            Console.WriteLine($"{name} tiene {hp} de vida...");
-            if (hp <= 0) {
-                texture1 = texture1dead; 
-                texture2 = texture2dead;
-                texture3 = texture3dead;
-                texture4 = texture4dead;
-                texture5 = texture5dead;
-                hp = 0;
+            if ((endurance == true) && (damage >= hp))
+            {
+                endurance = false;
+                hp = 1;
             }
+            else if (shield > 0)
+            {
+                hp  -= (damage - damage / shield);
+                Console.WriteLine($"{name} recive {(damage - damage / shield)} de daño!");
+            }
+            else
+            {
+                hp -= damage;
+                Console.WriteLine($"{name} recive {damage} de daño!");
+            }
+            Console.WriteLine($"{name} tiene {hp} de vida...");
 
         }
 
@@ -224,7 +234,14 @@ namespace MyGameProject.Game.GameObjects
             {
                 PoisonDamage();
             }
-           
+            if (mark > 0)
+            {
+                MarkDamage();
+            }
+            if (shieldDuration > 0)
+            {
+                ShieldDamage();
+            }
             if (ice > 0)
             {
                 IceDamage();
@@ -277,6 +294,19 @@ namespace MyGameProject.Game.GameObjects
             Console.WriteLine($"{name} esta congelado!");
             ice = ice - 1;
         }
+
+        public void MarkDamage()
+        {
+            mark -= 1;
+            if (mark == 0)
+            {
+                Console.WriteLine($"{name} deja de estar marcado!");
+            }
+            else
+            {
+                Console.WriteLine($"{name} esta marcado por {mark} turnos.");
+            }
+        }
         public void SetSpeed(int speed)
         {
             this.speed += speed;
@@ -302,6 +332,27 @@ namespace MyGameProject.Game.GameObjects
         {
             ice = ice + quantity;
         }
+
+        public void SetShield(int number, int duration)
+        {
+            shield = number;
+            shieldDuration = duration;
+        }
+
+        public void ShieldDamage()
+        {
+            shieldDuration -= 1;
+            if (shieldDuration == 0)
+            {
+                Console.WriteLine($"{name} deja de estar protegido!");
+                shield = 0;
+            }
+            else
+            {
+                Console.WriteLine($"{name} esta protegido por {shieldDuration} turnos.");
+            }
+        }
+
         public void SetMana(int quantity)
         {
             mana = mana + quantity;
@@ -323,6 +374,13 @@ namespace MyGameProject.Game.GameObjects
         public void SetExtraTurn(int quantity)
         {
             extraTurn += quantity;
+        }
+
+        // Only for the necromancer
+        public virtual void Corpses(Character character)
+        {
+            
+
         }
 
         // Allows the class to create a new class of the same type, each character has its how Clone(), used in the creation of enemies
